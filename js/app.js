@@ -212,7 +212,7 @@ cancelPost.click(() => {
     $('.topMenuBlock').removeClass('on');
     // reviewSideNav.addClass('on');
     reviewButtonWrap.show();
-    world.remove(editObject);
+    // world.remove(editObject);
     $('#sideNav').removeClass('hide');
     resetTextReview();
 });
@@ -505,7 +505,7 @@ manager.on('panend', function (e) {
     else {
         if (touch.press) {
             touch.press = false;
-            world.remove(touch.helper);
+            // world.remove(touch.helper);
 
             touch.current.z = touch.current.z + e.deltaY / 4;
             manager.get('pinch').set({enable: true});
@@ -581,7 +581,7 @@ manager.on('pressup', function (e) {
     if (touch.gestureF3.enable) return;
     if (touch.press) {
         touch.press = false;
-        world.remove(touch.helper);
+        // world.remove(touch.helper);
     }
 })
 
@@ -605,7 +605,7 @@ manager.on('press', function (e) {
 
     touch.helper.rotateX(Math.PI / 2);
 
-    world.add(touch.helper);
+    // world.add(touch.helper);
     manager.get('pinch').set({enable: false});
     manager.get('rotate').set({enable: false});
 });
@@ -679,7 +679,7 @@ const dbUrl = 'classes/wallboard';
 let editObject = null;
 let helpRenderable = null;
 let currentTarget = null;
-const world = new Object3D();
+// const world = new Object3D();
 const renderItems = [];
 let currentZposition = 0;
 const zpositionDelta = 0.1;
@@ -764,7 +764,7 @@ const reviewName = $('#textReviewAuthor');
 
 function resetComment(status = false) {
     if (editObject) editObject = null;
-    if (!status) world.remove(editObject);
+    // if (!status) world.remove(editObject);
     reviewText.val('');
     reviewName.val('');
     setCurrentTemplate();
@@ -775,7 +775,7 @@ function addComment(_type, _val, _author = null) {
     const ele = createDom(_type, _val, _author);
     ele.position.z = newZposition(currentZposition);
     currentTemplate.type = _type;
-    world.add(ele);
+    // world.add(ele);
 }
 
 $('.emojiBtn').each(function(index, ele) {
@@ -789,13 +789,13 @@ $('.emojiBtn').each(function(index, ele) {
 
 function showCommentRenderable() {
     renderItems.forEach((obj) => {
-        world.add(obj)
+        // world.add(obj)
     })
 }
 
 function hideCommentRenderable() {
     renderItems.forEach((obj) => {
-        world.remove(obj)
+        // world.remove(obj)
     })
 }
 
@@ -849,7 +849,7 @@ function checkValidation(ele, valText, status, text = null) {
 }
 
 // Add world to renderable
-function initWorld(e) {
+/*function initWorld(e) {
     let uri = e.target.uri;
     if (CURRENT_URI == null) {
         CURRENT_URI = uri;
@@ -862,7 +862,7 @@ function initWorld(e) {
         currentTarget = app.getEntity(CURRENT_URI);
         e.target.addRenderable(world);
     }
-}
+}*/
 
 const createDomContent = (_type, _content, _author = null) => {
     return (_type === 'text') ?

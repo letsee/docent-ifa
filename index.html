@@ -1,607 +1,707 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Letsee AR Demo - Ultima Cena</title>
-    <meta content="minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport" />
-    <script src="https://cdn.letsee.io/webar/letsee-0.9.18.min.js"></script>
-    <!--<script src="http://localhost:6931/lib/letsee-0.9.18.js"></script>-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700|Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-
-    <script src="./vendor/jquery.scrollbar.min.js"></script>
-    <link rel="stylesheet" href="./vendor/jquery.scrollbar.css">
-
-    <script src="./vendor/hammer.min.js"></script>
-    <script src="./vendor/axios.min.js"></script>
-
-    <link rel="stylesheet" href="css/layout.css">
-
-    <style media="place" type="text/css">
-        #container {
-            -letsee-target: uri('ultima-cena.json');
-            -letsee-position: coords(0, 0, 0);
-            width: 640px;
-            height: 360px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Letsee AR Demo - Ultima Cena</title>
+  
+  <!-- Letsee SDK -->
+  <script src="https://developer.letsee.io/api/webar?key=95b3e0c2fd6f8a7539e87b8e9ea7ec33b45ce405e93d9b48a090ddee58d6ec55"></script>
+  
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700|Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
+  
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+  
+  <script src="./vendor/jquery.scrollbar.min.js"></script>
+  <link rel="stylesheet" href="./vendor/jquery.scrollbar.css">
+  
+  <script src="./vendor/hammer.min.js"></script>
+  <script src="./vendor/axios.min.js"></script>
+  
+  <link rel="stylesheet" href="css/layout.css">
+  
+  <style media="place" type="text/css">
+    #container {
+      -letsee-target: uri('ultima-cena.json');
+      width: 640px;
+      height: 360px;
+    }
+  </style>
 </head>
 <body class="dummy">
 <style>
-    #ar-content section#overview #overviewTabs li a {
-        font-size: 20px;
-    }
-    #ar-content section#overview #overviewTabs .overviewTabItem#overviewTabs-1 dl {
-        font-size: 25px;
-    }
-    #ar-content section#watchPoint article#chapter-2 .text h3 strong {
-        font-size: 40px;
-    }
+  #ar-content section#overview #overviewTabs li a {
+    font-size: 20px;
+  }
+  
+  #ar-content section#overview #overviewTabs .overviewTabItem#overviewTabs-1 dl {
+    font-size: 25px;
+  }
+  
+  #ar-content section#watchPoint article#chapter-2 .text h3 strong {
+    font-size: 40px;
+  }
 </style>
 <div id="landscapeGuide">
-    <div class="wrap">
+  <div class="wrap">
     <div class="inner">
-        <img src="asset/rotate_device.svg">
-        <p>Horizontal screen is recommended.</p>
+      <img src="asset/rotate_device.svg">
+      <p>Horizontal screen is recommended.</p>
     </div>
-    </div>
+  </div>
 </div>
 <div id="loader">
-        <div class="wrap">
-            <div class="inner">
-                <div><img src="asset/icon-picture.svg"></div>
-                <p>Please take a picture from the front.</p>
-            </div>
-        </div>
+  <div class="wrap">
+    <div class="inner">
+      <div><img src="asset/icon-picture.svg"></div>
+      <p>Please take a picture from the front.</p>
+    </div>
+  </div>
 </div>
 <div class="dummy_img">
-    <img src="asset/ultima_cena.jpg">
+  <img src="asset/ultima_cena.jpg">
 </div>
 
 <div id="container">
-    <div id="ar-content">
-        <section id="menu" class="contentBox">
-            <h1>The Last Supper</h1>
-            <p class="subTitle">Leonardo da Vinci / 1452~1519</p>
+  <div id="ar-content">
+    <section id="menu" class="contentBox">
+      <h1>The Last Supper</h1>
+      <p class="subTitle">Leonardo da Vinci / 1452~1519</p>
+      <ul>
+        <li id="overviewBtn">
+          <div class="buttonWrap">
+            <img src="asset/icon-overview.svg" alt="Overview">
+            <p class="label">Overview</p>
+          </div>
+        </li>
+        <li id="watchPointBtn">
+          <div class="buttonWrap">
+            <img src="asset/icon-point.svg" alt="Watchpoint">
+            <p class="label">Watchpoint</p>
+          </div>
+        </li>
+        <li id="reviewBtn">
+          <div class="buttonWrap">
+            <img src="asset/icon-emoticon.svg" alt="Review">
+            <p class="label">Review</p>
+          </div>
+        </li>
+      </ul>
+      <!--<div class="poweredby"><img src="./asset/letsee-logo.svg"></div>-->
+    </section>
+    <!--Overview of work-->
+    <section id="overview" class="contentBox">
+      <div class="sectionTitle">
+        <h2>Overview</h2>
+      </div>
+      <div id="overviewTabs">
+        <ul class="cf">
+          <li><a href="#overviewTabs-1">Overview</a></li>
+          <li><a href="#overviewTabs-2">Description</a></li>
+          <li><a href="#overviewTabs-3">Author</a></li>
+          <li><a href="#overviewTabs-4">How to draw</a></li>
+        </ul>
+        <div class="overviewTabItem" id="overviewTabs-1">
+          <dl>
+            <dt>Name</dt>
+            <dd>The Last Supper (Italian: Il Cenacolo or L'Ultima Cena)</dd>
+            <dt>Artist</dt>
+            <dd>Leonardo da Vinci</dd>
+            <dt>Medium</dt>
+            <dd>Tempera, Gesso</dd>
+            <dt>Dimensions</dt>
+            <dd>460 x 880 cm</dd>
+            <dt>Year</dt>
+            <dd>1495~1497</dd>
+            <dt>Location</dt>
+            <dd>Santa Maria delle Grazie, Church in Milan, Italy</dd>
+          </dl>
+        </div>
+        <div class="overviewTabItem" id="overviewTabs-2">
+          <img id="supper-intro" src="asset/overview_last_supper.jpg" alt="">
+          <h3>The Last Supper</h3>
+          <div class="scrollbar-inner">
+            <div class="textCell">
+              <p>The Last Supper of Leonardo da Vinci (Cenacolo Vinciano) is one of the most famous paintings in the
+                world. This artwork was painted between 1494 and 1498 under the government of Ludovico il Moro and
+                represents the last "dinner" between Jesus and his disciples. In order to create this unique work,
+                Leonardo carried out an exhaustive research creating an infinity of preparatory sketches. Leonardo
+                abandons the traditional method of fresco painting, painting the scene "dry" on the wall of the
+                refectory. Traces of gold and silver foils have been found which testify to the artist's willingness to
+                make the figures in a much more realistic manner, including precious details. After completion, his
+                technique and environmental factor had contributed to the eventual deterioration of the fresco, which
+                had undergone numerous restorations. The most recent restoration was completed in 1999 where several
+                scientific methods were used to restore the original colors as close as possible, and to eliminate
+                traces of paint applied in previous attempts to restore the fresco.</p>
+              <p>What is the Leonardo's Last Supper nowadays?<br>
+                Leonardo's Last Supper is located in its original place, on the wall of the dining room of the former
+                Dominican convent of Santa Maria delle Grazie, exactly in the refectory of the convent and is one of the
+                most celebrated and well known artworks in the world.</p>
+              <p>Leonardo Da Vinci's "Last Supper", a huge painting of 4.60 meters high and 8.80 meters wide was made
+                with tempera and oil on a gypsum preparation instead of the technique commonly used in the fresco
+                period.</p>
+              <p>Several measures have now been implemented to protect the paint from deterioration. To ensure that the
+                fresco is maintained at room temperature, since the last restoration, visitor's' entry has been
+                restricted to a group of 25 people every 15 minutes.</p>
+              <p>Curiosities about the Leonardo's Last Supper<br>
+                Did you know that the great fame of this masterpiece has awaken the interest of many historians,
+                researchers and novelists who seek to solve the supposed mysteries and enigmas that surround this
+                painting. For example, in the books "The Templar Revelation" by Clive Prince and Lynn Picknett and in
+                the novel Dan Brown's Da Vinci Code, it is affirmed that the figure to the right of Jesus is not the
+                apostle John, but a female figure. The truth is that these mysteries and curiosities have not yet been
+                solved.</p>
+              <p>Did you know that during the French Revolutionary War Napoleon's troops used the wall of the refectory
+                to make target practice and during the Second World War in 1943 the bombings managed to tear off the
+                roof of the old Dominican dining room leaving the paint in the open for several years.</p>
+            </div>
+          </div>
+        </div>
+        <div class="overviewTabItem" id="overviewTabs-3">
+          <img id="artist-intro" src="asset/overview_davinci.jpg" alt="">
+          <h3>Leonardo da Vinci (1452 ~ 1519)</h3>
+          <div class="scrollbar-inner">
+            <div class="textCell">
+              <p>Leonardo di ser Piero da Vincimore commonly Leonardo da Vinci or simply Leonardo, was an Italian
+                polymath of the Renaissance whose areas of interest included invention, drawing, painting, sculpting,
+                architecture, science, music, mathematics,engineering, literature, anatomy, geology, astronomy, botany,
+                writing, history, and cartography.</p>
+              <p>He has been variously called the father of palaeontology, ichnology, and architecture, and he is widely
+                considered one of the greatest painters of all time. Sometimes credited with the inventions of the
+                parachute, helicopter, and tank, he epitomised the Renaissance humanist ideal.</p>
+            </div>
+          
+          </div>
+        </div>
+        <div class="overviewTabItem" id="overviewTabs-4">
+          <img id="tempera-intro" src="asset/overview_tempera.jpg" alt="">
+          <h3>Tempera</h3>
+          <div class="scrollbar-inner">
+            <div class="textCell">
+              <p>Tempera (Italian: [ˈtɛmpera]), also known as egg tempera, is a permanent, fast-drying painting medium
+                consisting of colored pigments mixed with a water-soluble binder medium, usually glutinous material such
+                as egg yolk. Tempera also refers to the paintings done in this medium. Tempera paintings are very long
+                lasting, and examples from the first century CE still exist. Egg tempera was a primary method of
+                painting until after 1500 when it was superseded by the invention of oil painting. A paint consisting of
+                pigment and binder commonly used in the United States as poster paint is also often referred to as
+                "tempera paint", although the binders in this paint are different from traditional tempera paint.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!--Watch point-->
+    <section id="watchPoint" class="contentBox">
+      <div class="sectionTitle">
+        <h2>Watch Point</h2>
+      </div>
+      <div id="watchNav" class="c1">
+        <a href="#" id="prev" class="disable">Prev</a>
+        <div id="titleWrap">
+          <h3>The 12 Disciples of Jesus Christ</h3>
+        </div>
+        <a href="#" id="next">Next</a>
+      </div>
+      <article id="chapter-1">
+        <div class="inner">
+          <div id="chapter1tab">
             <ul>
-                <li id="overviewBtn">
-                    <div class="buttonWrap">
-                        <img src="asset/icon-overview.svg" alt="Overview">
-                        <p class="label">Overview</p>
-                    </div>
-                </li>
-                <li id="watchPointBtn">
-                    <div class="buttonWrap">
-                        <img src="asset/icon-point.svg" alt="Watchpoint">
-                        <p class="label">Watchpoint</p>
-                    </div>
-                </li>
-                <li id="reviewBtn">
-                    <div class="buttonWrap">
-                        <img src="asset/icon-emoticon.svg" alt="Review">
-                        <p class="label">Review</p>
-                    </div>
-                </li>
+              <li id="itembtn1"><a href="#item01"><img src="asset/bartholomew@2x.png"><!--<span>Bartholomew</span>-->
+              </a></li>
+              <li id="itembtn2"><a href="#item02"><img src="asset/james_the_less@2x.png">
+                <!--<span>James the less</span>--></a></li>
+              <li id="itembtn3"><a href="#item03"><img src="asset/peter@2x.png"><!--<span>Peter</span>--></a></li>
+              <li id="itembtn4"><a href="#item04"><img src="asset/tomas@2x.png"><!--<span>Tomas</span>--></a></li>
+              <li id="itembtn5"><a href="#item05"><img src="asset/philip@2x.png"><!--<span>Philip</span>--></a></li>
+              <li id="itembtn6"><a href="#item06"><img src="asset/thaddeus@2x.png"><!--<span>Thaddeus</span>--></a></li>
+              <li id="itembtn7"><a href="#item07"><img src="asset/andrew@2x.png"><!--<span>Andrew</span>--></a></li>
+              <li id="itembtn8"><a href="#item08"><img src="asset/judas@2x.png"><!--<span>Judas</span>--></a></li>
+              <li id="itembtn9"><a href="#item09"><img src="asset/john@2x.png"><!--<span>John</span>--></a></li>
+              <li id="itembtn10"><a href="#item10"><img src="asset/james@2x.png"><!--<span>James</span>--></a></li>
+              <li id="itembtn11"><a href="#item11"><img src="asset/matthew@2x.png"><!--<span>Matthew</span>--></a></li>
+              <li id="itembtn12"><a href="#item12"><img src="asset/simon@2x.png"><!--<span>Simon</span>--></a></li>
+            
             </ul>
-            <!--<div class="poweredby"><img src="./asset/letsee-logo.svg"></div>-->
-        </section>
-        <!--Overview of work-->
-        <section id="overview" class="contentBox">
-            <div class="sectionTitle">
-                <h2>Overview</h2>
+            
+            <!--1. Bartholomew-->
+            <div id="item01" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/Bartholomew.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>Bartholomew</h4>
+                  <div class="scrollbar-inner">
+                    <p>"Nathanael, believed to be the disciple Bartholomew, experienced a jarring first encounter with
+                      Jesus. When the apostle Philip called him to come and meet the Messiah, Nathanael was skeptical,
+                      but he followed along anyway. As Philip introduced him to Jesus, the Lord declared, "Here is a
+                      true Israelite, in whom there is nothing false." Immediately Nathanael wanted to know, "How do you
+                      know me?"
+                      Jesus got his attention when he answered, "I saw you while you were still under the fig tree
+                      before Philip called you." Well, that stopped Nathanael in his tracks. Shocked and surprised he
+                      declared, "Rabbi, you are the Son of God; you are the King of Israel."</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div id="overviewTabs">
-                <ul class="cf">
-                    <li><a href="#overviewTabs-1">Overview</a></li>
-                    <li><a href="#overviewTabs-2">Description</a></li>
-                    <li><a href="#overviewTabs-3">Author</a></li>
-                    <li><a href="#overviewTabs-4">How to draw</a></li>
-                </ul>
-                <div class="overviewTabItem" id="overviewTabs-1">
-                    <dl>
-                        <dt>Name</dt><dd>The Last Supper (Italian: Il Cenacolo or L'Ultima Cena)</dd>
-                        <dt>Artist</dt><dd>Leonardo da Vinci</dd>
-                        <dt>Medium</dt><dd>Tempera, Gesso</dd>
-                        <dt>Dimensions</dt><dd>460 x 880 cm</dd>
-                        <dt>Year</dt><dd>1495~1497</dd>
-                        <dt>Location</dt><dd>Santa Maria delle Grazie, Church in Milan, Italy</dd>
-                    </dl>
+            
+            <!--2. James-->
+            <div id="item02" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/James_the_less.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>James the less</h4>
+                  <div class="scrollbar-inner">
+                    <p>"James the Less is one of the most obscure apostles in the Bible. The only things we know for
+                      certain are his name and that he was present in the upper room of Jerusalem after Christ ascended
+                      to heaven.
+                      In Twelve Ordinary Men, John MacArthur suggests that his obscurity may have been the
+                      distinguishing mark of his life. Discover why James the Less' complete anonymity may reveal
+                      something profound about his character."</p>
+                  </div>
                 </div>
-                <div class="overviewTabItem" id="overviewTabs-2">
-                    <img id="supper-intro" src="asset/overview_last_supper.jpg" alt="">
-                    <h3>The Last Supper</h3>
-                    <div class="scrollbar-inner">
-                        <div class="textCell">
-                            <p>The Last Supper of Leonardo da Vinci (Cenacolo Vinciano) is one of the most famous paintings in the world. This artwork was painted between 1494 and 1498 under the government of Ludovico il Moro and represents the last "dinner" between Jesus and his disciples. In order to create this unique work, Leonardo carried out an exhaustive research creating an infinity of preparatory sketches. Leonardo abandons the traditional method of fresco painting, painting the scene "dry" on the wall of the refectory. Traces of gold and silver foils have been found which testify to the artist's willingness to make the figures in a much more realistic manner, including precious details. After completion, his technique and environmental factor had contributed to the eventual deterioration of the fresco, which had undergone numerous restorations. The most recent restoration was completed in 1999 where several scientific methods were used to restore the original colors as close as possible, and to eliminate traces of paint applied in previous attempts to restore the fresco.</p>
-                            <p>What is the Leonardo's Last Supper nowadays?<br>
-                                Leonardo's Last Supper is located in its original place, on the wall of the dining room of the former Dominican convent of Santa Maria delle Grazie, exactly in the refectory of the convent and is one of the most celebrated and well known artworks in the world.</p>
-                            <p>Leonardo Da Vinci's "Last Supper", a huge painting of 4.60 meters high and 8.80 meters wide was made with tempera and oil on a gypsum preparation instead of the technique commonly used in the fresco period.</p>
-                            <p>Several measures have now been implemented to protect the paint from deterioration. To ensure that the fresco is maintained at room temperature, since the last restoration, visitor's' entry has been restricted to a group of 25 people every 15 minutes.</p>
-                            <p>Curiosities about the Leonardo's Last Supper<br>
-                                Did you know that the great fame of this masterpiece has awaken the interest of many historians, researchers and novelists who seek to solve the supposed mysteries and enigmas that surround this painting. For example, in the books "The Templar Revelation" by Clive Prince and Lynn Picknett and in the novel Dan Brown's Da Vinci Code, it is affirmed that the figure to the right of Jesus is not the apostle John, but a female figure. The truth is that these mysteries and curiosities have not yet been solved.</p>
-                            <p>Did you know that during the French Revolutionary War Napoleon's troops used the wall of the refectory to make target practice and during the Second World War in 1943 the bombings managed to tear off the roof of the old Dominican dining room leaving the paint in the open for several years.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="overviewTabItem" id="overviewTabs-3">
-                    <img id="artist-intro" src="asset/overview_davinci.jpg" alt="">
-                    <h3>Leonardo da Vinci (1452 ~ 1519)</h3>
-                    <div class="scrollbar-inner">
-                        <div class="textCell">
-                            <p>Leonardo di ser Piero da Vincimore commonly Leonardo da Vinci or simply Leonardo, was an Italian polymath of the Renaissance whose areas of interest included invention, drawing, painting, sculpting, architecture, science, music, mathematics,engineering, literature, anatomy, geology, astronomy, botany, writing, history, and cartography.</p>
-                            <p>He has been variously called the father of palaeontology, ichnology, and architecture, and he is widely considered one of the greatest painters of all time. Sometimes credited with the inventions of the parachute, helicopter, and tank, he epitomised the Renaissance humanist ideal.</p>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="overviewTabItem" id="overviewTabs-4">
-                    <img id="tempera-intro" src="asset/overview_tempera.jpg" alt="">
-                    <h3>Tempera</h3>
-                    <div class="scrollbar-inner">
-                        <div class="textCell">
-                            <p>Tempera (Italian: [ˈtɛmpera]), also known as egg tempera, is a permanent, fast-drying painting medium consisting of colored pigments mixed with a water-soluble binder medium, usually glutinous material such as egg yolk. Tempera also refers to the paintings done in this medium. Tempera paintings are very long lasting, and examples from the first century CE still exist. Egg tempera was a primary method of painting until after 1500 when it was superseded by the invention of oil painting. A paint consisting of pigment and binder commonly used in the United States as poster paint is also often referred to as "tempera paint", although the binders in this paint are different from traditional tempera paint.</p>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-        </section>
-
-        <!--Watch point-->
-        <section id="watchPoint" class="contentBox">
-            <div class="sectionTitle">
-                <h2>Watch Point</h2>
+            
+            <!--3. Peter-->
+            <div id="item03" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/Peter.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>Peter</h4>
+                  <div class="scrollbar-inner">
+                    <p>"Without question, the apostle Peter was a "duh"-ciple most people can identify with. One minute
+                      he was walking on water by faith, and the next he was sinking in doubt. Impulsive and emotional,
+                      Peter is best known for denying Jesus when the pressure was on. Even so, as a disciple he was
+                      dearly loved by Christ, holding a special place among the twelve.
+                      Peter, a spokesman for the twelve, stands out in the Gospels. Whenever the men are listed, Peter's
+                      name is first. He, James, and John formed the inner circle of Jesus' closest companions. These
+                      three alone were given the privilege of experiencing the transfiguration, along with a few other
+                      extraordinary revelations of Jesus."</p>
+                  
+                  </div>
+                </div>
+              </div>
             </div>
-            <div id="watchNav" class="c1">
-                <a href="#" id="prev" class="disable">Prev</a>
-                <div id="titleWrap">
-                    <h3>The 12 Disciples of Jesus Christ</h3>
+            
+            <!--4. Thomas-->
+            <div id="item04" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/Tomas.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>Tomas</h4>
+                  <div class="scrollbar-inner">
+                    <p>"The apostle Thomas is often referred to as "Doubting Thomas" because he refused to believe that
+                      Jesus had risen from the dead until he saw and touched Christ's physical wounds. As far as
+                      disciples go, however, history has dealt Thomas a bum rap. After all, each of the 12 apostles,
+                      except John, abandoned Jesus during his trial and death at Calvary.
+                      Thomas was prone to extremes. Earlier he had demonstrated courageous faith, willing to risk his
+                      own life to follow Jesus into Judea. There is an important lesson to be gained from studying
+                      Thomas: If we're truly seeking to know the truth, and we're honest with ourselves and others about
+                      our struggles and doubts, God will faithfully meet us and reveal himself to us, just as he did for
+                      Thomas."</p>
+                  
+                  </div>
                 </div>
-                <a href="#" id="next">Next</a>
+              </div>
             </div>
-            <article id="chapter-1">
-                <div class="inner">
-                    <div id="chapter1tab">
-                        <ul>
-                            <li id="itembtn1"><a href="#item01"><img src="asset/bartholomew@2x.png"><!--<span>Bartholomew</span>--></a></li>
-                            <li id="itembtn2"><a href="#item02"><img src="asset/james_the_less@2x.png"><!--<span>James the less</span>--></a></li>
-                            <li id="itembtn3"><a href="#item03"><img src="asset/peter@2x.png"><!--<span>Peter</span>--></a></li>
-                            <li id="itembtn4"><a href="#item04"><img src="asset/tomas@2x.png"><!--<span>Tomas</span>--></a></li>
-                            <li id="itembtn5"><a href="#item05"><img src="asset/philip@2x.png"><!--<span>Philip</span>--></a></li>
-                            <li id="itembtn6"><a href="#item06"><img src="asset/thaddeus@2x.png"><!--<span>Thaddeus</span>--></a></li>
-                            <li id="itembtn7"><a href="#item07"><img src="asset/andrew@2x.png"><!--<span>Andrew</span>--></a></li>
-                            <li id="itembtn8"><a href="#item08"><img src="asset/judas@2x.png"><!--<span>Judas</span>--></a></li>
-                            <li id="itembtn9"><a href="#item09"><img src="asset/john@2x.png"><!--<span>John</span>--></a></li>
-                            <li id="itembtn10"><a href="#item10"><img src="asset/james@2x.png"><!--<span>James</span>--></a></li>
-                            <li id="itembtn11"><a href="#item11"><img src="asset/matthew@2x.png"><!--<span>Matthew</span>--></a></li>
-                            <li id="itembtn12"><a href="#item12"><img src="asset/simon@2x.png"><!--<span>Simon</span>--></a></li>
-
-                        </ul>
-
-                        <!--1. Bartholomew-->
-                        <div id="item01" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/Bartholomew.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>Bartholomew</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>"Nathanael, believed to be the disciple Bartholomew, experienced a jarring first encounter with Jesus. When the apostle Philip called him to come and meet the Messiah, Nathanael was skeptical, but he followed along anyway. As Philip introduced him to Jesus, the Lord declared, "Here is a true Israelite, in whom there is nothing false." Immediately Nathanael wanted to know, "How do you know me?"
-                                            Jesus got his attention when he answered, "I saw you while you were still under the fig tree before Philip called you." Well, that stopped Nathanael in his tracks. Shocked and surprised he declared, "Rabbi, you are the Son of God; you are the King of Israel."</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--2. James-->
-                        <div id="item02" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/James_the_less.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>James the less</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>"James the Less is one of the most obscure apostles in the Bible. The only things we know for certain are his name and that he was present in the upper room of Jerusalem after Christ ascended to heaven.
-                                            In Twelve Ordinary Men, John MacArthur suggests that his obscurity may have been the distinguishing mark of his life. Discover why James the Less' complete anonymity may reveal something profound about his character."</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--3. Peter-->
-                        <div id="item03" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/Peter.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>Peter</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>"Without question, the apostle Peter was a "duh"-ciple most people can identify with. One minute he was walking on water by faith, and the next he was sinking in doubt. Impulsive and emotional, Peter is best known for denying Jesus when the pressure was on. Even so, as a disciple he was dearly loved by Christ, holding a special place among the twelve.
-                                            Peter, a spokesman for the twelve, stands out in the Gospels. Whenever the men are listed, Peter's name is first. He, James, and John formed the inner circle of Jesus' closest companions. These three alone were given the privilege of experiencing the transfiguration, along with a few other extraordinary revelations of Jesus."</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--4. Thomas-->
-                        <div id="item04" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/Tomas.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>Tomas</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>"The apostle Thomas is often referred to as "Doubting Thomas" because he refused to believe that Jesus had risen from the dead until he saw and touched Christ's physical wounds. As far as disciples go, however, history has dealt Thomas a bum rap. After all, each of the 12 apostles, except John, abandoned Jesus during his trial and death at Calvary.
-                                            Thomas was prone to extremes. Earlier he had demonstrated courageous faith, willing to risk his own life to follow Jesus into Judea. There is an important lesson to be gained from studying Thomas: If we're truly seeking to know the truth, and we're honest with ourselves and others about our struggles and doubts, God will faithfully meet us and reveal himself to us, just as he did for Thomas."</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--5. Phillip-->
-                        <div id="item05" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/Philip.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>Philip</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>Philip was one of the first followers of Jesus Christ, and he wasted no time calling others, like Nathanael, to do the same. Although little is known about him after the ascension of Christ, Bible historians believe Philip preached the gospel in Phrygia, in Asia Minor, and died a martyr there at Hierapolis. Learn how Philip’s search for the truth led him directly to the promised Messiah</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--6. 타데오-->
-                        <div id="item06" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/Thaddeus.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>Thaddeus</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>Listed together with Simon the Zealot and James the Less, the apostle Thaddeus completes a grouping of the least known disciples. In Twelve Ordinary Men, John MacArthur's book about the apostles, Thaddeus is characterized as a tender-hearted, gentle man who displayed childlike humility.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--7. Andrew-->
-                        <div id="item07" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/Andrew.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>Andrew</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>"The apostle Andrew abandoned John the Baptist to become the first follower of Jesus of Nazareth, but John didn't mind. He knew his mission was to point people to the Messiah.
-                                            Like many of us, Andrew lived in the shadow of his more famous sibling, Simon Peter. Andrew led Peter to Christ, then stepped into the background as his boisterous brother became a leader among the apostles and in the early church.
-                                            The Gospels don't tell us a great deal about Andrew, but reading between the lines reveals a person who thirsted for truth and found it in the living water of Jesus. Discover how a simple fisherman dropped his nets on the shore and went on to become a remarkable fisher of men."</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--8. Judas-->
-                        <div id="item08" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/Judas.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>Judas</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>"Judas Iscariot is the apostle who betrayed Jesus with a kiss. For this supreme act of treachery, some would say Judas Iscariot made the greatest error in history.
-                                            Down through time, people have had mixed feelings about Judas. Some experience a sense of hatred toward him, others feel pity, and some have even considered him a hero. No matter how you react to Judas, one thing is certain, believers can benefit greatly by taking a serious look at his life"</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--9. John-->
-                        <div id="item09" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/John.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>John</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>"The apostle John, brother to James, was nicknamed by Jesus one of the "sons of thunder," but he liked to call himself "the disciple whom Jesus loved." With his fiery temperament and special devotion to the Savior, he gained a favored place in Christ's inner circle.
-                                            John's enormous impact on the early Christian church and his larger-than-life personality, make him a fascinating character study. His writings reveal contrasting traits. For instance, on the first Easter morning, with his typical zeal and enthusiasm, John raced Peter to the tomb after Mary Magdalene reported that it was now empty. Although John won the race and bragged about this achievement in his Gospel (John 20:1-9), he humbly allowed Peter to enter the tomb first.
-                                            According to tradition, John outlived all of the disciples, dying of old age in Ephesus, where he preached a gospel of love and taught against heresy."</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--10. James-->
-                        <div id="item10" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/James.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>James</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>James the son of Zebedee, often called James the Greater to distinguish him from the other apostle named James, was a member of Christ's inner circle, which included his brother, the apostle John, and Peter. Not only did James and John earn a special nickname from the Lord — "sons of thunder" — they were privileged to be at the front and center of three supernatural events in the life of Christ. In addition to these honors, James was the first of the twelve to be martyred for his faith in A.D. 44.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--11. Matthew-->
-                        <div id="item11" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/Matthew.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>Matthew</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>"Levi, who became the apostle Matthew, was a customs official in Capernaum who taxed imports and exports based on his own judgment. The Jews hated him because he worked for Rome and betrayed his countrymen.
-                                            But when Matthew the dishonest tax collector heard two words from Jesus, "Follow me," he left everything and obeyed. Like us, he longed to be accepted and loved. Matthew recognized Jesus as someone worth sacrificing for."</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--12. Simon-->
-                        <div id="item12" class="tabPannel">
-                            <div class="wrap">
-                                <img src="asset/Simon.jpg" alt="">
-                                <div class="textCell">
-                                    <button class="reselect" onclick="chapter1tabBtn();">Back</button>
-                                    <h4>Simon</h4>
-                                    <div class="scrollbar-inner">
-                                        <p>"Who doesn't like a good mystery? One puzzling question in the Bible is the exact identity of Simon the Zealot, the Bible's own mystery apostle.
-                                            Scripture tells us almost nothing about Simon. In the Gospels, he is mentioned in three places, but only to list his name. In Acts 1:13 we learn that he was present with the apostles in the upper room of Jerusalem after Christ had ascended to heaven. Beyond those few details, we can only speculate about Simon and his designation as a Zealot."</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            
+            <!--5. Phillip-->
+            <div id="item05" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/Philip.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>Philip</h4>
+                  <div class="scrollbar-inner">
+                    <p>Philip was one of the first followers of Jesus Christ, and he wasted no time calling others, like
+                      Nathanael, to do the same. Although little is known about him after the ascension of Christ, Bible
+                      historians believe Philip preached the gospel in Phrygia, in Asia Minor, and died a martyr there
+                      at Hierapolis. Learn how Philip’s search for the truth led him directly to the promised
+                      Messiah</p>
+                  
+                  </div>
                 </div>
-            </article>
-
-            <article id="chapter-2">
-                <div class="inner">
-                    <div class="text">
-                        <div class="graph">
-                            <div class="leftCell">
-                                <p class="label"><span>3 months</span></p>
-                                <div class="content">Person</div>
-                            </div>
-                            <div class="rightCell">
-                                <p class="label"><span> 2 years and 6 months</span></p>
-                                <div class="content">Food</div>
-                            </div>
-                        </div>
-                        <p>
-                            The Last Supper took more than twice as long as the other paintings.<br>
-                            It took more time to figure out which painting to put on the table.<br>
-                            It can be seen where Da Vinci's interest was headed.
-                        </p>
-                    </div>
-                </div>
-            </article>
-
-            <article id="chapter-3">
-                <div class="inner">
-                    <a href="#" class="btnRound btnDetail" id="chapter3detail" onclick="chapter3detail();">Detail View</a>
-                    <div id="comparison">
-                        <figure>
-                            <div id="divider"></div>
-                        </figure>
-                        <div id="comparisonHandle">
-                            <div class="circle"></div>
-                        </div>
-                        <input type="range" min="0" max="100" value="73" id="slider">
-                    </div>
-
-                    <div id="nailDetail" style="display: none;">
-                        <div class="textCell">
-                            <a href="#" class="btnRound btnGoback" onclick="chapter3return();">Close</a>
-                            <div class="imgCell">
-                                <img src="asset/img-ratiozoom@2x.png" alt="">
-                            </div>
-                            <div class="para">
-                            <h3>Vanishing point & Nail hole</h3>
-                            <p>Judas Iscariot was a disciple and one of the original Twelve Disciples of Jesus Christ.
-                                <!--According to all four canonical gospels, Judas betrayed Jesus to the Sanhedrin in the Garden of Gethsemane by kissing him and addressing him as "rabbi" to reveal his identity to the crowd who had come to arrest him.--></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <article id="chapter-4">
-                <div class="inner">
-                    <a href="#" class="btnRound btnDetail" id="chapter4play" onclick="chapter4play();">Music Play</a>
-                    <div id="chapter4Note">
-                        <p>A computer technician has claimed to have cracked a real Da Vinci code, <br>by finding musical notes encoded in the masterpiece The Last Supper.</p>
-                        <div class="noteImg" id="c4NotePrev"><img src="asset/note_position.png"></div>
-                        <div class="noteImg" id="c4NoteNext">
-                            <img src="asset/note-symbol-all@2x.png">
-                            <div class="noteLine">
-                                <hr><hr><hr><hr><hr>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div id="chapter4Video" style="display: none">
-                        <a style="" href="#" class="btnRound btnGoback" id="chapter4return" onclick="chapter4return();">Close</a>
-                        <div class="video">
-                            <div class="video-container">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/MkuIzdHwOAk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <section id="reviewScreen" class="contentBox">
-            <div class="sectionTitle">
-                <h2>Review</h2>
+              </div>
             </div>
-            <div id="reviewIntro">
-                <div class="inner">
-                    <div class="title">How to review</div>
-                    <ol>
-                        <li>
-                            <p>You can add review<br> with text or emoji.</p>
-                            <div class="cf">
-                                <img src="asset/icon-text.svg"><span></span>
-                                <img src="asset/icon-emoticon.svg">
-
-                            </div>
-                        </li>
-                        <li>
-                            <p>You can resize or rotate,<br>relocate review before attach.</p>
-                            <div class="cf">
-                                <img src="asset/icn-scale.svg"><span></span>
-                                <img src="asset/icn-rotate.svg">
-                            </div>
-
-                        </li>
-                    </ol>
-                    <div class="btnWrap">
-                        <button type="button" id="startReview" class="btnBox">Start</button>
-                    </div>
+            
+            <!--6. 타데오-->
+            <div id="item06" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/Thaddeus.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>Thaddeus</h4>
+                  <div class="scrollbar-inner">
+                    <p>Listed together with Simon the Zealot and James the Less, the apostle Thaddeus completes a
+                      grouping of the least known disciples. In Twelve Ordinary Men, John MacArthur's book about the
+                      apostles, Thaddeus is characterized as a tender-hearted, gentle man who displayed childlike
+                      humility.</p>
+                  
+                  </div>
                 </div>
-
-
+              </div>
             </div>
-
-        </section>
-    </div>
+            
+            <!--7. Andrew-->
+            <div id="item07" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/Andrew.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>Andrew</h4>
+                  <div class="scrollbar-inner">
+                    <p>"The apostle Andrew abandoned John the Baptist to become the first follower of Jesus of Nazareth,
+                      but John didn't mind. He knew his mission was to point people to the Messiah.
+                      Like many of us, Andrew lived in the shadow of his more famous sibling, Simon Peter. Andrew led
+                      Peter to Christ, then stepped into the background as his boisterous brother became a leader among
+                      the apostles and in the early church.
+                      The Gospels don't tell us a great deal about Andrew, but reading between the lines reveals a
+                      person who thirsted for truth and found it in the living water of Jesus. Discover how a simple
+                      fisherman dropped his nets on the shore and went on to become a remarkable fisher of men."</p>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!--8. Judas-->
+            <div id="item08" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/Judas.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>Judas</h4>
+                  <div class="scrollbar-inner">
+                    <p>"Judas Iscariot is the apostle who betrayed Jesus with a kiss. For this supreme act of treachery,
+                      some would say Judas Iscariot made the greatest error in history.
+                      Down through time, people have had mixed feelings about Judas. Some experience a sense of hatred
+                      toward him, others feel pity, and some have even considered him a hero. No matter how you react to
+                      Judas, one thing is certain, believers can benefit greatly by taking a serious look at his
+                      life"</p>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!--9. John-->
+            <div id="item09" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/John.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>John</h4>
+                  <div class="scrollbar-inner">
+                    <p>"The apostle John, brother to James, was nicknamed by Jesus one of the "sons of thunder," but he
+                      liked to call himself "the disciple whom Jesus loved." With his fiery temperament and special
+                      devotion to the Savior, he gained a favored place in Christ's inner circle.
+                      John's enormous impact on the early Christian church and his larger-than-life personality, make
+                      him a fascinating character study. His writings reveal contrasting traits. For instance, on the
+                      first Easter morning, with his typical zeal and enthusiasm, John raced Peter to the tomb after
+                      Mary Magdalene reported that it was now empty. Although John won the race and bragged about this
+                      achievement in his Gospel (John 20:1-9), he humbly allowed Peter to enter the tomb first.
+                      According to tradition, John outlived all of the disciples, dying of old age in Ephesus, where he
+                      preached a gospel of love and taught against heresy."</p>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!--10. James-->
+            <div id="item10" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/James.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>James</h4>
+                  <div class="scrollbar-inner">
+                    <p>James the son of Zebedee, often called James the Greater to distinguish him from the other
+                      apostle named James, was a member of Christ's inner circle, which included his brother, the
+                      apostle John, and Peter. Not only did James and John earn a special nickname from the Lord — "sons
+                      of thunder" — they were privileged to be at the front and center of three supernatural events in
+                      the life of Christ. In addition to these honors, James was the first of the twelve to be martyred
+                      for his faith in A.D. 44.</p>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!--11. Matthew-->
+            <div id="item11" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/Matthew.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>Matthew</h4>
+                  <div class="scrollbar-inner">
+                    <p>"Levi, who became the apostle Matthew, was a customs official in Capernaum who taxed imports and
+                      exports based on his own judgment. The Jews hated him because he worked for Rome and betrayed his
+                      countrymen.
+                      But when Matthew the dishonest tax collector heard two words from Jesus, "Follow me," he left
+                      everything and obeyed. Like us, he longed to be accepted and loved. Matthew recognized Jesus as
+                      someone worth sacrificing for."</p>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!--12. Simon-->
+            <div id="item12" class="tabPannel">
+              <div class="wrap">
+                <img src="asset/Simon.jpg" alt="">
+                <div class="textCell">
+                  <button class="reselect" onclick="chapter1tabBtn();">Back</button>
+                  <h4>Simon</h4>
+                  <div class="scrollbar-inner">
+                    <p>"Who doesn't like a good mystery? One puzzling question in the Bible is the exact identity of
+                      Simon the Zealot, the Bible's own mystery apostle.
+                      Scripture tells us almost nothing about Simon. In the Gospels, he is mentioned in three places,
+                      but only to list his name. In Acts 1:13 we learn that he was present with the apostles in the
+                      upper room of Jerusalem after Christ had ascended to heaven. Beyond those few details, we can only
+                      speculate about Simon and his designation as a Zealot."</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      
+      <article id="chapter-2">
+        <div class="inner">
+          <div class="text">
+            <div class="graph">
+              <div class="leftCell">
+                <p class="label"><span>3 months</span></p>
+                <div class="content">Person</div>
+              </div>
+              <div class="rightCell">
+                <p class="label"><span> 2 years and 6 months</span></p>
+                <div class="content">Food</div>
+              </div>
+            </div>
+            <p>
+              The Last Supper took more than twice as long as the other paintings.<br>
+              It took more time to figure out which painting to put on the table.<br>
+              It can be seen where Da Vinci's interest was headed.
+            </p>
+          </div>
+        </div>
+      </article>
+      
+      <article id="chapter-3">
+        <div class="inner">
+          <a href="#" class="btnRound btnDetail" id="chapter3detail" onclick="chapter3detail();">Detail View</a>
+          <div id="comparison">
+            <figure>
+              <div id="divider"></div>
+            </figure>
+            <div id="comparisonHandle">
+              <div class="circle"></div>
+            </div>
+            <input type="range" min="0" max="100" value="73" id="slider">
+          </div>
+          
+          <div id="nailDetail" style="display: none;">
+            <div class="textCell">
+              <a href="#" class="btnRound btnGoback" onclick="chapter3return();">Close</a>
+              <div class="imgCell">
+                <img src="asset/img-ratiozoom@2x.png" alt="">
+              </div>
+              <div class="para">
+                <h3>Vanishing point & Nail hole</h3>
+                <p>Judas Iscariot was a disciple and one of the original Twelve Disciples of Jesus Christ.
+                  <!--According to all four canonical gospels, Judas betrayed Jesus to the Sanhedrin in the Garden of Gethsemane by kissing him and addressing him as "rabbi" to reveal his identity to the crowd who had come to arrest him.--></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      
+      <article id="chapter-4">
+        <div class="inner">
+          <a href="#" class="btnRound btnDetail" id="chapter4play" onclick="chapter4play();">Music Play</a>
+          <div id="chapter4Note">
+            <p>A computer technician has claimed to have cracked a real Da Vinci code, <br>by finding musical notes
+              encoded in the masterpiece The Last Supper.</p>
+            <div class="noteImg" id="c4NotePrev"><img src="asset/note_position.png"></div>
+            <div class="noteImg" id="c4NoteNext">
+              <img src="asset/note-symbol-all@2x.png">
+              <div class="noteLine">
+                <hr>
+                <hr>
+                <hr>
+                <hr>
+                <hr>
+              </div>
+            
+            </div>
+          </div>
+          
+          <div id="chapter4Video" style="display: none">
+            <a style="" href="#" class="btnRound btnGoback" id="chapter4return" onclick="chapter4return();">Close</a>
+            <div class="video">
+              <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/MkuIzdHwOAk" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+    
+    <section id="reviewScreen" class="contentBox">
+      <div class="sectionTitle">
+        <h2>Review</h2>
+      </div>
+      <div id="reviewIntro">
+        <div class="inner">
+          <div class="title">How to review</div>
+          <ol>
+            <li>
+              <p>You can add review<br> with text or emoji.</p>
+              <div class="cf">
+                <img src="asset/icon-text.svg"><span></span>
+                <img src="asset/icon-emoticon.svg">
+              
+              </div>
+            </li>
+            <li>
+              <p>You can resize or rotate,<br>relocate review before attach.</p>
+              <div class="cf">
+                <img src="asset/icn-scale.svg"><span></span>
+                <img src="asset/icn-rotate.svg">
+              </div>
+            
+            </li>
+          </ol>
+          <div class="btnWrap">
+            <button type="button" id="startReview" class="btnBox">Start</button>
+          </div>
+        </div>
+      
+      
+      </div>
+    
+    </section>
+  </div>
 </div>
 <aside id="sideNav" class="sideMenu on">
-    <div id="openNav"><img src="asset/icon-menu.svg"></div>
-    <ul>
-        <li><a href="#close"><img src="asset/icon-x.svg" alt="Home"></a></li>
-        <li><a href="#menu"><img src="asset/icon-home.svg" alt="Home"><span class="label">Home</span></a></li>
-        <li><a href="#overview"><img src="asset/icon-overview.svg" alt="작품 개요"><span class="label">Overview</span></a></li>
-        <li><a href="#watchPoint"><img src="asset/icon-point.svg" alt="관전 포인트"><span class="label">WatchPoint</span></a></li>
-        <li><a href="#reviewScreen"><img src="asset/icon-emoticon.svg" alt="감상평"><span class="label">Review</span></a></li>
-    </ul>
+  <div id="openNav"><img src="asset/icon-menu.svg"></div>
+  <ul>
+    <li><a href="#close"><img src="asset/icon-x.svg" alt="Home"></a></li>
+    <li><a href="#menu"><img src="asset/icon-home.svg" alt="Home"><span class="label">Home</span></a></li>
+    <li><a href="#overview"><img src="asset/icon-overview.svg" alt="작품 개요"><span class="label">Overview</span></a></li>
+    <li><a href="#watchPoint"><img src="asset/icon-point.svg" alt="관전 포인트"><span class="label">WatchPoint</span></a>
+    </li>
+    <li><a href="#reviewScreen"><img src="asset/icon-emoticon.svg" alt="감상평"><span class="label">Review</span></a></li>
+  </ul>
 </aside>
 <aside id="useGuide">
-    <div class="inner">
-        <div class="content">
-            <div class="title"><p>Use guide</p></div>
-            <div class="body">
-                <p>You can navigate<br>with each button</p>
-            </div>
-            <div class="btnWrap">
-                <a class="btnBox" href="#">Start</a>
-            </div>
-        </div>
-        <div class="image">
-            <img src="./asset/guide_01.png">
-        </div>
-
+  <div class="inner">
+    <div class="content">
+      <div class="title"><p>Use guide</p></div>
+      <div class="body">
+        <p>You can navigate<br>with each button</p>
+      </div>
+      <div class="btnWrap">
+        <a class="btnBox" href="#">Start</a>
+      </div>
     </div>
+    <div class="image">
+      <img src="./asset/guide_01.png">
+    </div>
+  
+  </div>
 </aside>
 
 <div class="reviewBlock">
-    <div id="reviewButtonWrap">
-        <a class="btnBox" id="emojiReview" href="#">emoticon</a>
-        <a class="btnBox" id="textReview" href="#">text</a>
+  <div id="reviewButtonWrap">
+    <a class="btnBox" id="emojiReview" href="#">emoticon</a>
+    <a class="btnBox" id="textReview" href="#">text</a>
+  </div>
+  <div id="reviewTopGuide" class="topMenuBlock">
+    <div class="inner">
+      <p>Please add text or emoji review</p>
     </div>
-    <div id="reviewTopGuide" class="topMenuBlock">
-        <div class="inner">
-            <p>Please add text or emoji review</p>
+  </div>
+  <div id="reviewControl" class="topMenuBlock">
+    <div class="inner">
+      <p>Please resize or rotate, relocate</p>
+      <div class="btnWrap">
+        <button type="button" id="cancelPost" class="btnBox btnGray">Cancel</button>
+        <button type="button" id="postReview" class="btnBox">Save</button>
+      </div>
+    </div>
+  </div>
+  <div id="textReviewInput" class="reviewModal">
+    <form>
+      <div class="inner">
+        <p>Please leave feedback freely.</p>
+        <dl class="cf">
+          <dt>nickname</dt>
+          <dd><input type="text" id="textReviewAuthor" placeholder="Please add Nickname less then 5 character">
+          <dd class="validate"><span id="authorVal" class="validation"></span></dd>
+          <dt>text</dt>
+          <dd><input type="text" id="textReviewContent" class="" placeholder="Please add text less then 15 character">
+          <dd class="validate"><span id="contentVal" class="validation"></span></dd>
+        </dl>
+        <div class="btnWrap">
+          <button type="button" id="cancelReview" class="btnBox btnGray">Cancel</button>
+          <button type="submit" class="btnBox">Save</button>
         </div>
+      </div>
+    </form>
+  </div>
+  
+  
+  <div id="emojiList">
+    <div class="innerScroll">
+      <div class="inner">
+      
+      </div>
     </div>
-    <div id="reviewControl" class="topMenuBlock">
-        <div class="inner">
-            <p>Please resize or rotate, relocate</p>
-            <div class="btnWrap">
-                <button type="button" id="cancelPost" class="btnBox btnGray">Cancel</button>
-                <button type="button" id="postReview" class="btnBox">Save</button>
-            </div>
-        </div>
-    </div>
-    <div id="textReviewInput" class="reviewModal">
-        <form>
-            <div class="inner">
-                <p>Please leave feedback freely.</p>
-                <dl class="cf">
-                    <dt>nickname</dt>
-                    <dd><input type="text" id="textReviewAuthor" placeholder="Please add Nickname less then 5 character">
-                    <dd class="validate"><span id="authorVal" class="validation"></span></dd>
-                    <dt>text</dt>
-                    <dd><input type="text" id="textReviewContent" class="" placeholder="Please add text less then 15 character">
-                    <dd class="validate"><span id="contentVal" class="validation"></span></dd>
-                </dl>
-                <div class="btnWrap">
-                    <button type="button" id="cancelReview" class="btnBox btnGray">Cancel</button>
-                    <button type="submit" class="btnBox">Save</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-
-
-
-    <div id="emojiList">
-        <div class="innerScroll">
-            <div class="inner">
-
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 
 <div id="backdrop"></div>
 <script src="./js/emoji.js"></script>
 <script src="./js/app.js"></script>
 <script>
-    const config = {
-        "appKey": "abdc9d670bc3b103374306761da7f20f49f7f23ac57b39d012338fa849229a0f",
-        "trackerType": "IMAGE"
-    };
+  
+  let checkLoading = false;
+  
+  letsee.ready(() => {
+    letsee.start();
+    $('#loader').show();
+    $('#ar-content').show();
     
+    letsee.onTrackStart(e => {
+      if (!checkLoading) {
+        $('#loader').hide();
+        $('#sideNav').show();
+        checkLoading = true;
+      }
+      // initWorld(e);
+    });
+    letsee.onTrackEnd(() => {});
+    letsee.onTrackMove(() => {});
     
-    
-    const app = new Letsee(config);
-    let checkLoading = false;
-    if(app !== null && typeof app !== 'undefined') {
-
-        app.addEventListener('app_status', e => {
-            console.log(e);
-            switch (e.code) {
-                case 202:
-                    $('#loader').show();
-                    $('#ar-content').show();
-                    break;
-            }
-        });
-        app.addEventListener('trackstart', e => {
-            if (!checkLoading) {
-                $('#loader').hide();
-                $('#sideNav').show();
-                checkLoading = true;
-            }
-            initWorld(e);
-        });
-    };
-    
-    setInterval(() => {
-        console.log(document.getElementById('container').style.transform);
-    }, 200);
-
-
+  });
+  letsee.init();
+  
+  setInterval(() => {
+    console.log(document.getElementById('container').style.transform);
+  }, 200);
 
 </script>
 </body>
