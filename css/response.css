@@ -1,0 +1,179 @@
+@media (min-width: 481px) and (max-width: 800px) {
+
+    #menu-layout #ltitle {
+        font-size: 20px;
+
+    }
+
+    #menu-layout #content-layout {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        padding: 10% 0
+    }
+
+
+    #menu-layout #content-layout p {
+        font-size: 18px;
+        width: 30%;
+        text-align: center;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 25%;
+    }
+    #menu-layout #content-layout #ic-gr {
+        float: right;
+        transform: none;
+        margin: 0;
+        padding: 0;
+        width: 45%;
+        /*background: #f00;*/
+        height: 100%;
+        text-align: left;
+    }
+    #menu-layout #content-layout #sum {
+        height: 100%;
+        width: auto;
+    }
+    #menu-layout button {
+        position: absolute;
+        bottom: 20px;
+        font-size: 17px;
+        width: auto;
+        padding: 8px 15px;
+        font-weight: 400;
+    }
+
+    #pageInfo {
+        width: 80%;
+        height: 80%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        padding: 20px;
+        border-radius: 0;
+        background: rgba(28, 28, 28, 0.8);
+    }
+    #pageInfo h2 {
+        font-size: 20px;
+    }
+
+    #pageInfo #guide-header {
+        height: auto;
+        padding: 0 0 0 20px;
+        margin-bottom: 25px;
+    }
+
+    #pageInfo #guide-text {
+        height: auto;
+        padding: 0;
+        margin: 0;
+    }
+    #pageInfo #guide-text ol {
+        margin: 0;
+        padding: 0;
+        padding-left: 17px;
+    }
+
+    #pageInfo li {
+        margin: 0 0 10px 5px;
+        font-size: 16px;
+    }
+
+    #pageInfo #guide-icons {
+        width: auto;
+        margin: 0;
+    }
+
+    #pageInfo button {
+        font-size: 17px;
+        width: auto;
+        padding: 8px 15px;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    #comment-box {
+        display: block;
+        position: absolute;
+        width: 60%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        padding: 15px;
+        text-align: center;
+    }
+
+    #comment-box p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    #comment-box form label {
+        margin: 0;
+    }
+    #comment-box form input {
+
+    }
+    #comment-box #btCancel-box,
+    #comment-box #btOK-box {
+        font-size: 17px;
+        width: auto;
+        padding: 8px 30px;
+        font-weight: 400;
+        margin: 10px 5px;
+    }
+
+    #confirm {
+        height: auto;
+    }
+    #confirm p {
+        font-size: 20px;
+    }
+
+    #confirm #btCancel,
+    #confirm #btOK {
+        padding: 6px;
+        font-size: 16px;
+    }
+
+    #comment-success {
+        display: block;
+        width: 60%;
+        height: auto;
+        margin: 0;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        text-align: center;
+        padding: 20px;
+    }
+
+    #comment-success p {
+        line-height: 1 !important;
+        margin: 0;
+        padding: 0 0 40px 0;
+        font-size: 22px;
+        font-weight: 400;
+    }
+
+    #comment-success button {
+        margin: 0;
+        font-size: 17px;
+        width: auto;
+        padding: 8px 15px;
+        font-weight: 400;
+        min-width: 40%;
+    }
+
+
+
+
+}

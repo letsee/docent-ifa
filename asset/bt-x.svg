@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="bt_x" width="30" height="30" viewBox="0 0 30 30">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#00b1c9;stroke-linecap:round;stroke-width:3px}
+        </style>
+    </defs>
+    <circle id="타원_19" cx="15" cy="15" r="15" data-name="타원 19"/>
+    <path id="선_21" d="M11 0L0 11" class="cls-1" data-name="선 21" transform="translate(9.5 9.5)"/>
+    <path id="선_22" d="M0 0l11 11" class="cls-1" data-name="선 22" transform="translate(9.5 9.5)"/>
+</svg>

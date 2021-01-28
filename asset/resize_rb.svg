@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icn_rotate_counterclock" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="그룹_167" data-name="그룹 167" transform="rotate(-180 12 12)">
+        <path id="패스_70" d="M0 0h24v24H0z" class="cls-1" data-name="패스 70"/>
+        <path id="패스_71" d="M10.586 4L8.757 2.172 10.172.757 14.414 5l-4.242 4.243-1.415-1.415L10.586 6H8a3 3 0 0 0-3 3v4H3V9a5 5 0 0 1 5-5z" class="cls-2" data-name="패스 71" transform="translate(3 5)"/>
+    </g>
+</svg>

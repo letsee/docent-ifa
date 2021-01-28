@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 82 82">
+    <defs>
+        <style>
+            .cls-1,.cls-5,.cls-7{fill:#fff}.cls-1,.cls-7{stroke:none}.cls-2,.cls-4{fill:none}.cls-2{stroke:#fff;stroke-width:2px}.cls-3{opacity:.12}.cls-4{stroke:rgba(0,0,0,0)}.cls-5{font-size:14px;font-family:NotoSansCJKkr-Medium,Noto Sans CJK KR;font-weight:500}.cls-6{clip-path:url(#clip-path)}.cls-7{stroke-width:.052px}
+        </style>
+        <clipPath id="clip-path">
+            <path id="사각형_86" d="M0 0h36v36H0z" class="cls-1" data-name="사각형 86" transform="translate(976 188)"/>
+        </clipPath>
+    </defs>
+    <g id="문자입력_btn" transform="translate(-951 -389)">
+        <g id="Round_Button_Flat" data-name="Round Button Flat" transform="translate(735 -130)">
+            <text id="문자입력" class="cls-5" transform="translate(257 586.692)">
+                <tspan x="-12.76" y="0">Text</tspan>
+            </text>
+        </g>
+        <g id="마스크_그룹_3" class="cls-6" data-name="마스크 그룹 3" transform="translate(0 214)">
+            <g id="surface1" transform="translate(976.179 188)">
+                <path id="패스_140" d="M.019 0h25.715v9h-1.392l-.806-4.432a3.215 3.215 0 0 0-3.162-2.639h-4.283a.643.643 0 0 0-.643.643v28.181a2.572 2.572 0 0 0 1.758 2.439l4.027 1.343V36H4.519v-1.465l4.027-1.343a2.572 2.572 0 0 0 1.758-2.439V2.572a.643.643 0 0 0-.643-.643H5.379a3.214 3.214 0 0 0-3.162 2.64L1.411 9H.019zm0 0" class="cls-7" data-name="패스 140"/>
+                <path id="패스_141" d="M31.519 6.429h-1.531L32.8.794l2.817 5.634h-1.526a.643.643 0 0 0-.643.643v21.857a.643.643 0 0 0 .643.643h1.531L32.8 35.206l-2.817-5.634h1.531a.643.643 0 0 0 .643-.643V7.071a.643.643 0 0 0-.638-.642zm0 0" class="cls-7" data-name="패스 141"/>
+            </g>
+        </g>
+    </g>
+</svg>

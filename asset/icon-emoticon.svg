@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icon_emoticon" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1,.cls-2{fill:none}.cls-2{stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <path id="blankbox" d="M0 0h24v24H0z" class="cls-1"/>
+    <circle id="타원_12" cx="10" cy="10" r="10" class="cls-2" data-name="타원 12" transform="translate(2 2)"/>
+    <path id="패스_25" d="M8 14a5.4 5.4 0 0 0 4 2 5.4 5.4 0 0 0 4-2" class="cls-2" data-name="패스 25"/>
+    <path id="선_11" d="M0 0h.01" class="cls-2" data-name="선 11" transform="translate(9 9)"/>
+    <path id="선_12" d="M0 0h.01" class="cls-2" data-name="선 12" transform="translate(15 9)"/>
+</svg>

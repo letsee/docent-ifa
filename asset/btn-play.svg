@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 0 15 20">
+    <defs>
+        <style>
+            .cls-1,.cls-3{fill:#fff}.cls-2,.cls-3{stroke:none}
+        </style>
+    </defs>
+    <g id="Play_icon" class="cls-1">
+        <path d="M18.131 14.5H1.87a.49.49 0 0 1-.441-.264.49.49 0 0 1 .024-.513L9.584 1.525A.493.493 0 0 1 10 1.303c.17 0 .322.08.416.222l8.131 12.198a.49.49 0 0 1 .025.513.49.49 0 0 1-.44.264z" class="cls-2" transform="rotate(90 7.5 7.5)"/>
+        <path d="M10 1.803L1.869 14H18.13L10 1.803m0-1c.317 0 .634.148.832.445l8.132 12.197A1 1 0 0 1 18.13 15H1.87a1 1 0 0 1-.833-1.555L9.168 1.248A.993.993 0 0 1 10 .803z" class="cls-3" transform="rotate(90 7.5 7.5)"/>
+    </g>
+</svg>

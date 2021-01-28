@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="icn_scale" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1,.cls-2{fill:none}.cls-2{stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <path id="blankbox" d="M0 0h24v24H0z" class="cls-1"/>
+    <path id="패스_36" d="M15 3h6v6" class="cls-2" data-name="패스 36"/>
+    <path id="패스_37" d="M9 21H3v-6" class="cls-2" data-name="패스 37"/>
+    <path id="선_19" d="M7 0L0 7" class="cls-2" data-name="선 19" transform="translate(14 3)"/>
+    <path id="선_20" d="M0 7l7-7" class="cls-2" data-name="선 20" transform="translate(3 14)"/>
+</svg>

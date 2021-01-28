@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 82 82">
+    <defs>
+        <style>
+            .cls-1,.cls-5,.cls-7{fill:#fff}.cls-1,.cls-7{stroke:#none}.cls-2,.cls-4{fill:none}.cls-2{stroke:#fff;stroke-width:2px}.cls-3{opacity:.12}.cls-4{stroke:rgba(0,0,0,0)}.cls-5{font-size:14px;font-family:NotoSansCJKkr-Medium,Noto Sans CJK KR;font-weight:500}.cls-6{clip-path:url(#clip-path)}.cls-7{stroke-width:.063px}
+        </style>
+        <clipPath id="clip-path">
+            <path id="사각형_87" d="M0 0h36v36H0z" class="cls-1" data-name="사각형 87" transform="translate(974 292)"/>
+        </clipPath>
+    </defs>
+    <g id="이모티콘_btn" transform="translate(-951 -287)">
+        <text id="이모티콘" class="cls-5" transform="translate(992 355.692)">
+            <tspan x="-25.76" y="0">이모티콘</tspan>
+        </text>
+        <g id="마스크_그룹_4" class="cls-6" data-name="마스크 그룹 4" transform="translate(0 10)">
+            <g id="_001-happy" data-name="001-happy" transform="translate(974 292)">
+                <g id="그룹_165" data-name="그룹 165">
+                    <g id="group-2svg">
+                        <path id="path-1_10_" d="M26.008 13.279a2.074 2.074 0 1 1-2.074-2.074 2.074 2.074 0 0 1 2.074 2.074z" class="cls-7"/>
+                        <path id="path-2_10_" d="M14.086 13.279a2.074 2.074 0 1 1-2.074-2.074 2.074 2.074 0 0 1 2.074 2.074z" class="cls-7"/>
+                        <path id="path-3_10_" d="M19.586 28.643h-2.88a6.583 6.583 0 0 1-6.614-6.536.854.854 0 0 1 1.709 0 4.815 4.815 0 0 0 4.905 4.827h2.88a4.777 4.777 0 0 0 4.905-4.747.854.854 0 1 1 1.709 0 6.467 6.467 0 0 1-6.614 6.456z" class="cls-7"/>
+                        <path id="path-4_10_" d="M18 36a18 18 0 1 1 18-18 18.018 18.018 0 0 1-18 18zm0-34.29A16.29 16.29 0 1 0 34.286 18 16.307 16.307 0 0 0 18 1.71z" class="cls-7"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

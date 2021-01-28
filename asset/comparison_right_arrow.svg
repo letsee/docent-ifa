@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="구성_요소_48_1" width="14" height="22" data-name="구성 요소 48 – 1" viewBox="0 0 14 22">
+    <defs>
+        <style>
+            .cls-1,.cls-2{fill:none}.cls-2{stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px}
+        </style>
+    </defs>
+    <path id="사각형_192" d="M0 0h14v22H0z" class="cls-1" data-name="사각형 192"/>
+    <path id="패스_85" d="M16 21.547l7.773-7.773L16 6" class="cls-2" data-name="패스 85" transform="translate(-12.818 -2.773)"/>
+</svg>
