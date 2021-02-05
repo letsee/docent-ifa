@@ -1,17 +1,120 @@
 
-/*setTimeout(() => {
-    // currentTarget = letsee.getEntityByUri('ultima-cena.json').children[0];
-    currentTarget = document.getElementsByClassName('helper')[0];
-    console.warn(`${currentTarget}`);
-}, 10000)*/
+const reviewText = $('#textReviewContent');
+const reviewName = $('#textReviewAuthor');
 
-let currentTarget = null;
+let currentTarget = null,
+    helpRenderable = null,
+    editObject = null;
+
+let currentTemplate = {};
+// const renderItems = [];
+const zpositionDelta = 0.1;
+let currentZposition = 0;
+const newZposition = (val) => val * -zpositionDelta;
+/*const commentTemplate= {
+    "id": null,
+    "type": null,
+    "content": null,
+    "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+    },
+    "rotation": {
+        "_x": 0,
+        "_y": 0,
+        "_z": 0,
+        "_order": "XYZ"
+    },
+    "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+    }
+};*/
+emojiArray.forEach((val, index) => {
+    emojiList.append(`<button type="button" class="emojiBtn">${val}</button>`);
+});
+
+/*================================ HAMMER ====================================*/
 
 window.addEventListener('touchstart', touchDown);
 window.addEventListener('touchend', touchUp);
 window.addEventListener('touchmove', touchMove);
 
-let manager = new Hammer.Manager(document.body),
+let manager = new Hammer(document.body);
+manager.get('pinch').set({enable: true});
+manager.get('pan').set({enable: true, direction: Hammer.DIRECTION_ALL});
+manager.get('rotate').set({ enable: true });
+manager.get('press').set({ enable: true,time: 1000, threshold: 15 });
+manager.get('tap').set({ enable: true });
+let lastDeltaX = 0, lastDeltaY = 0;
+// let currentItem = null;
+// let lastPos = null;
+
+/*mc.on('tap', (ev) => {
+    // console.error(`TAP`, lastPos);
+
+    if (!currentItem) return ;
+    if (!lastPos) return ;
+
+    currentItem.position.x = lastPos.x;
+    currentItem.position.y = lastPos.y;
+});
+mc.on('pinch', (ev) => {
+    console.warn(ev);
+    console.error(`PINCH`);
+});
+mc.on('panstart', (ev) => {
+    // console.error(`panstart`, lastPos);
+
+    if (!currentItem) return ;
+    if (!lastPos) return ;
+
+    console.error(currentItem);
+
+    // currentItem.position.x = lastPos.x;
+    // currentItem.position.y = lastPos.y;
+
+});
+mc.on('panmove', (ev) => {
+    // console.error(`PAN`, ev);
+
+    // letsee.getEntityByUri('ultima-cena.json').children.forEach(c => {
+    //     if (c.element.className === 'renderable helper') currentItem = c;
+    // });
+
+    const { deltaX, deltaY } = ev;
+    const posX = deltaX - lastDeltaX;
+    const posY = deltaY - lastDeltaY;
+    if (!currentItem) return ;
+    if (!lastPos) return ;
+
+    console.warn(`lastPos`, lastPos);
+    currentItem.position.x = currentItem.position.x + posX;
+    currentItem.position.y = currentItem.position.y - posY;
+
+    lastDeltaX = deltaX;
+    lastDeltaY = deltaY;
+});
+mc.on('panend', (ev) => {
+    // console.error(`PANEND`, ev);
+
+    if (!currentItem) return ;
+    console.warn(currentItem.position);
+    lastPos = currentItem.position;
+
+});
+mc.on('rotate', (ev) => {
+    console.warn(ev);
+    console.error(`ROTATE`);
+});
+mc.on('press', (ev) => {
+    console.warn(ev);
+    console.error(`PRESS`);
+});*/
+
+/*let manager = new Hammer.Manager(document.body),
     Pan = new Hammer.Pan(),
     Rotate = new Hammer.Rotate(),
     Pinch = new Hammer.Pinch(),
@@ -23,7 +126,7 @@ Pinch.recognizeWith([Rotate, Pan]);
 manager.add(Press);
 manager.add(Pan);
 manager.add(Rotate);
-manager.add(Pinch);
+manager.add(Pinch);*/
 
 let touch = {
     current: {
@@ -52,9 +155,15 @@ let touch = {
 };
 
 manager.on('panmove', function (e) {
+    console.warn(`move`);
+
     if (touch.gestureF3.enable) return;
     if (!editObject) return;
     if (touch.isBoundary) return;
+
+    const { deltaX, deltaY } = e;
+    const posX = deltaX - lastDeltaX;
+    const posY = deltaY - lastDeltaY;
 
     /*if (currentTarget.size.width * 2 < editObject.position.x || -currentTarget.size.width * 2 > editObject.position.x) {
         editObject.position.x = editObject.position.x > 0 ? (currentTarget.size.width * 2) - 1 : -((currentTarget.size.width * 2) - 1);
@@ -84,9 +193,13 @@ manager.on('panmove', function (e) {
         const dY = touch.current.y + (e.deltaY * 2);
 
         editObject.position.x = dX;
-        editObject.position.y = dY;
+        editObject.position.y = -dY;
+        // editObject.position.x = editObject.position.x + posX;
+        // editObject.position.y = editObject.position.y - posY;
+        //
+        // lastDeltaX = deltaX;
+        // lastDeltaY = deltaY;
     }
-    ;
 });
 
 manager.on('panend', function (e) {
@@ -241,12 +354,12 @@ function touchDown(e) {
     if (e.touches.length > 2) {
         touch.gestureF3.enable = true;
 
-        manager.get('pan').set({enable: false});
-        manager.get('pinch').set({enable: false});
-        manager.get('rotate').set({enable: false});
-
-        touch.move.x = e.touches[1].pageX;
-        touch.move.y = e.touches[1].pageY;
+        // manager.get('pan').set({enable: false});
+        // manager.get('pinch').set({enable: false});
+        // manager.get('rotate').set({enable: false});
+        //
+        // touch.move.x = e.touches[1].pageX;
+        // touch.move.y = e.touches[1].pageY;
     }
 }
 
@@ -256,10 +369,308 @@ function touchUp(e) {
     if (touch.gestureF3.enable) touch.gestureF3.count++;
 
     if (touch.gestureF3.count === 3) {
-        manager.get('pan').set({enable: true});
-        manager.get('pinch').set({enable: true});
-        manager.get('rotate').set({enable: true});
-        touch.gestureF3.count = 0;
-        touch.gestureF3.enable = false;
+        // manager.get('pan').set({enable: true});
+        // manager.get('pinch').set({enable: true});
+        // manager.get('rotate').set({enable: true});
+        // touch.gestureF3.count = 0;
+        // touch.gestureF3.enable = false;
     }
 }
+
+/*================================ AXIOS ====================================*/
+
+/*axios.defaults.baseURL = 'https://browser.letsee.io:8337/parse';
+axios.defaults.headers.common['X-Parse-Application-Id'] = 'awe2019wallboard';
+const dbUrl = 'classes/wallboard';*/
+
+/**
+ * Handle when user clicks on each emoji.
+ */
+$('.emojiBtn').each(function(index, ele) {
+    $(this).click(() => {
+        emojiInput.hide();
+        addComment('emoji', emojiArray[index]);
+
+        reviewControl.addClass('on');
+        $('#sideNav').addClass('hide');
+    })
+})
+
+/**
+ * Reset comments (?)
+ * @param status
+ */
+function resetComment(status = false) {
+    if (editObject) editObject = null;
+    // if (!status) world.remove(editObject);
+    reviewText.val('');
+    reviewName.val('');
+    // setCurrentTemplate();
+}
+
+/**
+ * Add comments.
+ * @param _type
+ * @param _val
+ * @param _author
+ */
+function addComment(_type, _val, _author = null) {
+    // setCurrentTemplate();
+    const ele = createDom(_type, _val, _author);
+    touch.current.x = 0;
+    touch.current.y = 0;
+    // ele.position.z = newZposition(currentZposition);
+    // currentTemplate.type = _type;
+    // world.add(ele);
+
+    currentItem = ele;
+    // currentItem.position.set(100, 20, 0);
+}
+
+/*function setCurrentTemplate() {
+    currentTemplate = {...commentTemplate};
+    // touch.current.x = 0;
+    // touch.current.y = 0;
+    // touch.current.z = 0;
+    // touch.current.scale = 1;
+    // touch.current.rotation = 0;
+}*/
+
+/**
+ *
+ * @param rotation
+ * @returns {{_order: (*|string), _x: *, _y: *, _z: *}}
+ */
+function extractRotation(rotation) {
+    return {
+        "_x": rotation._x,
+        "_y": rotation._y,
+        "_z": rotation._z,
+        "_order": rotation._order || "XYZ"
+    }
+}
+
+// getComments();
+
+/**
+ * Create DOM content wrapper for comments (text & emojis).
+ *
+ * @param _type
+ * @param _content
+ * @param _author
+ * @returns {string}
+ */
+const createDomContent = (_type, _content, _author = null) => {
+    return (_type === 'text') ?
+        `<div class="wrap"><div class="comment"><div class="value">${_content}</div><div class="author">${_author}</div></div></div>` :
+        `<div class="wrap"><div class="emoji"><div class="value" style="font-size: 50px">${_content}</div></div></div>`;
+};
+
+/**
+ * Create xrElement for contents (text or emojis).
+ *
+ * @param _content
+ * @param _position
+ * @param _rotation
+ * @param _scale
+ * @returns {*}
+ */
+function createRenderable(_content, _position = null, _rotation = null, _scale = null) {
+    // const element = document.createElement('div');
+    // element.classList.add('renderable');
+    // element.innerHTML = _content;
+
+    let xrelement = letsee.addXRElement(_content, letsee.getEntityByUri('ultima-cena.json'));
+
+    /*const renderableEle = new DOMRenderable(element);
+    if (_position)
+        renderableEle.position.copy(_position);
+    else
+        renderableEle.position.setScalar(0);
+
+    if (_rotation)
+        renderableEle.rotation.copy(extractRotation(_rotation));
+    else
+        renderableEle.position.setScalar(0);
+
+    if (_scale)
+        renderableEle.scale.copy(_scale);
+    else
+        renderableEle.position.setScalar(1);
+
+    return renderableEle;*/
+    return xrelement;
+}
+
+/**
+ * Create DOM renderable object and add renderable and helper class to content.
+ * @param type
+ * @param value
+ * @param _author
+ * @returns {null}
+ */
+function createDom(type, value,  _author = null) {
+    console.warn(`createDom`);
+
+    // const element = document.createElement('div');
+    currentTemplate.content = createDomContent(type, value, _author);
+
+    console.error(editObject);
+
+    if (!editObject) {
+        editObject = createRenderable(currentTemplate.content);
+        editObject.element.classList.add('renderable', 'helper');
+    }
+    else console.warn("editObject is already exist!");
+
+    return editObject;
+}
+
+/**
+ * Show XRElements for comments.
+ */
+function showCommentRenderable() {
+
+    if (document.getElementsByClassName('renderable') && document.getElementsByClassName('renderable').length > 0) {
+        const _renderables = document.getElementsByClassName('renderable');
+        for (let i=0; i< _renderables.length; i++) {
+            _renderables.item(i).style.visibility = 'visible';
+        }
+    }
+}
+
+/**
+ * Hide XRElements for comments.
+ */
+function hideCommentRenderable() {
+
+    if (document.getElementsByClassName('renderable') && document.getElementsByClassName('renderable').length > 0) {
+
+        const _renderables = document.getElementsByClassName('renderable');
+        for (let i=0; i< _renderables.length; i++) {
+            _renderables.item(i).style.visibility = 'hidden';
+        }
+    }
+}
+
+/**
+ * Save comment object into XRElements and axios
+ * @returns {Promise<unknown>}
+ */
+function saveComment() {
+    return new Promise((resolve, reject) => {
+        if (editObject) {
+            editObject.element.classList.remove('helper');
+            currentTemplate.position = {...editObject.position};
+            currentTemplate.rotation = {...extractRotation(editObject.rotation)};
+            currentTemplate.scale = {...editObject.scale};
+
+            // TODO: At this moment, we don't use this because of axios
+            // postComment().then(resolve).catch(reject);
+
+            // Reset currentItem to prevent edit
+            currentItem = null;
+
+            // Update GUI
+            reviewControl.removeClass('on');
+            reviewButtonWrap.show();
+            $('#sideNav').removeClass('hide');
+
+            resetComment();
+        } else {
+            reject();
+        }
+    })
+
+}
+
+/**
+ * Post the comment on the board.
+ *
+ * @returns {Promise<unknown>}
+ */
+/*function postComment() {
+    return new Promise((resolve, reject) => {
+        if(currentTemplate) {
+            axios.post(dbUrl, currentTemplate)
+                .then((result) => {
+                    renderItems.push(editObject);
+                    currentZposition++;
+                    resetComment();
+                    resolve(result);
+                })
+                .catch(error => {
+                    reject(error);
+                    resetComment(true);
+                })
+        } else {
+            reject(error);
+            resetComment();
+        }
+    })
+}*/
+
+/**
+ * Get all of comments
+ * @returns {Promise<unknown>}
+ */
+/*function getComments() {
+    console.log('getComments');
+    return new Promise((resolve, reject) => {
+        axios.get(dbUrl, {
+            params: {
+                order: 'createdAt'
+            }
+        })
+            .then(data => {
+                printCommentItemsFromJson(data.data.results);
+                editObject = null;
+            })
+            .catch(error => {
+                reject(error);
+            })
+    })
+}*/
+
+/**
+ *
+ * @param data
+ */
+/*function printCommentItemsFromJson(data) {
+    data.forEach((item, index) => {
+        const renderableItem = createRenderable(item.content, item.position, item.rotation, item.scale);
+        renderableItem.position.z = newZposition(currentZposition);
+        currentZposition++;
+        renderItems.push(renderableItem)
+    });
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

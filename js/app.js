@@ -1,20 +1,37 @@
-// Set review screen
-const reviewIntro = $('#reviewIntro');
-const reviewButtonWrap = $('#reviewButtonWrap');
-const reviewTopGuide = $('#reviewTopGuide');
-const reviewControl = $('#reviewControl');
-const reviewSideNav = $('#reviewSideNav');
-const reviewSideNavLink = $('#reviewSideNav a');
-const textReviewInput = $('#textReviewInput');
-const emojiInput = $('#emojiList');
-const emojiList = $('#emojiList .inner');
-const startReview = $('#startReview');
-const cancelReview = $('#cancelReview');
-const cancelPost = $('#cancelPost');
-const postReview = $('#postReview');
-const backdrop = $('#backdrop');
 
-let editObject = null;
+// Set review screen
+const reviewIntro       = $('#reviewIntro'),
+    reviewButtonWrap    = $('#reviewButtonWrap'),
+    reviewTopGuide      = $('#reviewTopGuide'),
+    reviewControl       = $('#reviewControl'),
+    reviewSideNav       = $('#reviewSideNav'),
+    reviewSideNavLink   = $('#reviewSideNav a'),
+    textReviewInput     = $('#textReviewInput'),
+    emojiInput          = $('#emojiList'),
+    emojiList           = $('#emojiList .inner'),
+    startReview         = $('#startReview'),
+    cancelReview        = $('#cancelReview'),
+    cancelPost          = $('#cancelPost'),
+    postReview          = $('#postReview'),
+    backdrop            = $('#backdrop');
+
+// Set main nav
+const menuSection       = $('#menu'),
+    overviewSection     = $('#overview'),
+    watchpointSection   = $('#watchPoint'),
+    reviewSection       = $('#reviewScreen');
+let currentSection      = menuSection;
+
+// Set watchpoint nav
+const noteImage         = $('#noteImage'),
+    prevNav             = $('#prev'),
+    nextNav             = $('#next'),
+    watchPointTitle     = $('#titleWrap h3'),
+    watchPointSubtext   = $('#navSubtext');
+let currentWatchpoint = 0;
+
+
+let CURRENT_URI = null;
 
 // Init tabs
 $('#overviewTabs').tabs({active: 0});
@@ -39,14 +56,6 @@ moveDivider();
 slider.on('change input mousemove', () => {
     moveDivider();
 });
-
-
-// Set main nav
-const menuSection = $('#menu'),
-    overviewSection = $('#overview'),
-    watchpointSection = $('#watchPoint'),
-    reviewSection = $('#reviewScreen');
-let currentSection = menuSection;
 
 const dissolve = (prev, next, speed = 200) => {
     prev.fadeOut(speed);
@@ -196,7 +205,6 @@ $(function(){
     });
 });
 
-
 textReviewInput.children('form').submit((e) => {
     e.preventDefault();
     const validationFlag = validation(reviewText, reviewName);
@@ -246,14 +254,6 @@ $('#chapter1tab').tabs({
     active: false
 });
 
-
-
-const noteImage = $('#noteImage');
-const prevNav = $('#prev'),
-    nextNav = $('#next'),
-    watchPointTitle = $('#titleWrap h3'),
-    watchPointSubtext = $('#navSubtext');
-let currentWatchpoint = 0;
 const chapterObj = [
     {
         title: 'The 12 Disciples of Jesus Christ',
@@ -388,10 +388,7 @@ const chapter4return = () => {
     );
 };
 
-const resetAllChapter = () => {
-
-};
-
+const resetAllChapter = () => {};
 
 nextNav.click((e) => {
     e.preventDefault();
@@ -407,158 +404,11 @@ prevNav.click((e) => {
     controlWatchpoint(currentWatchpoint + 1, currentWatchpoint)
 });
 
-
-emojiArray.forEach((val, index) => {
-    emojiList.append(`<button type="button" class="emojiBtn">${val}</button>`);
-});
-
 startReview.click(function() {
     $('#reviewIntro').hide();
     reviewButtonWrap.show();
     showCommentRenderable();
 });
-
-/*axios.defaults.baseURL = 'https://browser.letsee.io:8337/parse';
-axios.defaults.headers.common['X-Parse-Application-Id'] = 'awe2019wallboard';
-const dbUrl = 'classes/wallboard';*/
-
-
-let helpRenderable = null;
-
-// const world = new Object3D();
-const renderItems = [];
-let currentZposition = 0;
-const zpositionDelta = 0.1;
-const newZposition = (val) => val * -zpositionDelta;
-
-
-let CURRENT_URI = null;
-const commentTemplate= {
-    "id": null,
-    "type": null,
-    "content": null,
-    "position": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-    },
-    "rotation": {
-        "_x": 0,
-        "_y": 0,
-        "_z": 0,
-        "_order": "XYZ"
-    },
-    "scale": {
-        "x": 1,
-        "y": 1,
-        "z": 1
-    }
-};
-let currentTemplate = {};
-function setCurrentTemplate() {
-    currentTemplate = {...commentTemplate};
-    // touch.current.x = 0;
-    // touch.current.y = 0;
-    // touch.current.z = 0;
-    // touch.current.scale = 1;
-    // touch.current.rotation = 0;
-}
-
-/**
- * Get all of comments
- * @returns {Promise<unknown>}
- */
-/*function getComments() {
-    console.log('getComments');
-    return new Promise((resolve, reject) => {
-        axios.get(dbUrl, {
-            params: {
-                order: 'createdAt'
-            }
-        })
-            .then(data => {
-                printCommentItemsFromJson(data.data.results);
-                editObject = null;
-            })
-            .catch(error => {
-                reject(error);
-            })
-    })
-}*/
-
-function printCommentItemsFromJson(data) {
-    data.forEach((item, index) => {
-        const renderableItem = createRenderable(item.content, item.position, item.rotation, item.scale);
-        renderableItem.position.z = newZposition(currentZposition);
-        currentZposition++;
-        renderItems.push(renderableItem)
-    });
-}
-
-function extractRotation(rotation) {
-    return {
-        "_x": rotation._x,
-        "_y": rotation._y,
-        "_z": rotation._z,
-        "_order": rotation._order || "XYZ"
-    }
-
-}
-
-// getComments();
-
-const reviewText = $('#textReviewContent');
-const reviewName = $('#textReviewAuthor');
-
-function resetComment(status = false) {
-    if (editObject) editObject = null;
-    // if (!status) world.remove(editObject);
-    reviewText.val('');
-    reviewName.val('');
-    setCurrentTemplate();
-}
-
-function addComment(_type, _val, _author = null) {
-    setCurrentTemplate();
-    const ele = createDom(_type, _val, _author);
-    // ele.position.z = newZposition(currentZposition);
-    currentTemplate.type = _type;
-
-    // console.warn(`addComment`);
-    // console.warn(ele);
-
-    // world.add(ele);
-}
-
-$('.emojiBtn').each(function(index, ele) {
-    $(this).click(() => {
-        emojiInput.hide();
-        addComment('emoji', emojiArray[index]);
-        reviewControl.addClass('on');
-        $('#sideNav').addClass('hide');
-    })
-})
-
-function showCommentRenderable() {
-
-    if (document.getElementsByClassName('renderable') && document.getElementsByClassName('renderable').length > 0) {
-        document.getElementsByClassName('renderable')[0].style.visibility = 'visible';
-    }
-    /*renderItems.forEach((obj) => {
-        world.add(obj)
-    })*/
-}
-
-function hideCommentRenderable() {
-
-    if (document.getElementsByClassName('renderable') && document.getElementsByClassName('renderable').length > 0) {
-        document.getElementsByClassName('renderable')[0].style.visibility = 'hidden';
-    }
-
-    /*renderItems.forEach((obj) => {
-        world.remove(obj)
-    })*/
-}
 
 function validation(_reviewText, _reviewName) {
     let flag = [false, false];
@@ -623,108 +473,4 @@ function checkValidation(ele, valText, status, text = null) {
         currentTarget = app.getEntity(CURRENT_URI);
         e.target.addRenderable(world);
     }
-}*/
-
-const createDomContent = (_type, _content, _author = null) => {
-    return (_type === 'text') ?
-        `<div class="wrap"><div class="comment"><div class="value">${_content}</div><div class="author">${_author}</div></div></div>` :
-        `<div class="wrap"><div class="emoji"><div class="value" style="font-size: 50px">${_content}</div></div></div>`;
-};
-
-function createRenderable(_content, _position = null, _rotation = null, _scale = null) {
-    // const element = document.createElement('div');
-    // element.classList.add('renderable');
-    // element.innerHTML = _content;
-
-    let xrelement = letsee.addXRElement(_content, letsee.getEntityByUri('ultima-cena.json'));
-
-    /*const renderableEle = new DOMRenderable(element);
-    if (_position)
-        renderableEle.position.copy(_position);
-    else
-        renderableEle.position.setScalar(0);
-
-    if (_rotation)
-        renderableEle.rotation.copy(extractRotation(_rotation));
-    else
-        renderableEle.position.setScalar(0);
-
-    if (_scale)
-        renderableEle.scale.copy(_scale);
-    else
-        renderableEle.position.setScalar(1);
-
-    return renderableEle;*/
-    return xrelement;
-}
-
-function createDom(type, value,  _author = null) {
-    console.warn(`createDom`);
-
-    // const element = document.createElement('div');
-    currentTemplate.content = createDomContent(type, value, _author);
-
-    if (!editObject) {
-        editObject = createRenderable(currentTemplate.content);
-
-        editObject.element.classList.add('renderable', 'helper');
-        // console.warn(editObject);
-    }
-    else console.warn("editObject is already exist!");
-
-    return editObject;
-}
-
-/**
- * Save comment object into XRElements and axios
- * @returns {Promise<unknown>}
- */
-function saveComment() {
-    return new Promise((resolve, reject) => {
-        if (editObject) {
-            editObject.element.classList.remove('helper')
-            currentTemplate.position = {...editObject.position};
-            currentTemplate.rotation = {...extractRotation(editObject.rotation)};
-            currentTemplate.scale = {...editObject.scale};
-
-            // TODO: At this moment, we don't use this because of axios
-            // postComment().then(resolve).catch(reject);
-
-            // Update GUI
-            reviewControl.removeClass('on');
-            reviewButtonWrap.show();
-            $('#sideNav').removeClass('hide');
-
-            resetComment();
-        } else {
-            reject();
-        }
-    })
-
-}
-
-/**
- * Post the comment on the board.
- *
- * @returns {Promise<unknown>}
- */
-/*function postComment() {
-    return new Promise((resolve, reject) => {
-        if(currentTemplate) {
-            axios.post(dbUrl, currentTemplate)
-                .then((result) => {
-                    renderItems.push(editObject);
-                    currentZposition++;
-                    resetComment();
-                    resolve(result);
-                })
-                .catch(error => {
-                    reject(error);
-                    resetComment(true);
-                })
-        } else {
-            reject(error);
-            resetComment();
-        }
-    })
 }*/
