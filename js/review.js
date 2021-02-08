@@ -229,7 +229,7 @@ manager.on('pinchmove', function (e) {
 
     if (touch.isBoundary) return;
 
-    if (currentTarget.size.width * 2 < editObject.position.x || -currentTarget.size.width * 2 > editObject.position.x) {
+    /*if (currentTarget.size.width * 2 < editObject.position.x || -currentTarget.size.width * 2 > editObject.position.x) {
         editObject.position.x = editObject.position.x > 0 ? (currentTarget.size.width * 2) - 1 : -((currentTarget.size.width * 2) - 1);
 
         touch.current.x = editObject.position.x;
@@ -244,7 +244,7 @@ manager.on('pinchmove', function (e) {
         touch.current.y = -editObject.position.y;
         touch.isBoundary = true;
         return;
-    }
+    }*/
 
     const scale = e.scale * touch.current.scale;
     // var scale = (e.scale-(e.scale/2)) * touch.current.scale;
