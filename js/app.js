@@ -124,18 +124,31 @@ $('#sideNav a').click(function(e){
     currentSection = newChapter;
 });
 
+/**
+ * Show text form when user clicks to textReview button.
+ */
 function setTextReview() {
     toggleBackdrop(true);
     resetComment();
     textReviewInput.show();
     emojiInput.hide();
-    reviewTopGuide.removeClass('on');
+    reviewButtonWrap.hide();
+    // reviewTopGuide.removeClass('on');
+    // reviewSideNav.removeClass('on');
+
+    $('.topMenuBlock').removeClass('on');
+    $('#sideNav').addClass('hide');
 }
 
+/**
+ * Show emoji review.
+ */
 function setEmojiReview() {
     textReviewInput.hide();
     emojiInput.show();
     reviewButtonWrap.hide();
+    $('#sideNav').addClass('hide');
+
     // reviewTopGuide.removeClass('on');
     // reviewSideNav.removeClass('on');
 }
@@ -189,6 +202,7 @@ $('#emojiReview').click(function() {
 
 cancelReview.click(() => {
     resetTextReview();
+    reviewButtonWrap.show();
     $('#sideNav').removeClass('hide');
 });
 
@@ -220,8 +234,6 @@ cancelPost.click(() => {
     $('.topMenuBlock').removeClass('on');
     // reviewSideNav.addClass('on');
     reviewButtonWrap.show();
-
-    // world.remove(editObject);
 
     // Remove xrelement our of Entity
     letsee.getEntityByUri('ultima-cena.json').children.pop();

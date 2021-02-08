@@ -392,7 +392,7 @@ $('.emojiBtn').each(function(index, ele) {
         addComment('emoji', emojiArray[index]);
 
         reviewControl.addClass('on');
-        $('#sideNav').addClass('hide');
+        // $('#sideNav').addClass('hide');
     })
 })
 

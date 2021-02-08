@@ -1689,10 +1689,11 @@ $offset: $movement/2;
 
 #reviewButtonWrap {
   display: none;
-  position: absolute;
+  position: fixed;
   width: 100%;
   text-align: center;
   bottom: 20px;
+  left: 0;
   z-index: 200;
   a {
     width: 140px;
@@ -1804,10 +1805,8 @@ $offset: $movement/2;
 }
 #emojiList {
   display: none;
-  position: absolute;
-  //overflow: hidden;
-  bottom: 0px;
-  //width: 88%;
+  position: fixed;
+  bottom: 0;
   left: 0;
   z-index: 200;
 
@@ -1859,7 +1858,7 @@ $offset: $movement/2;
 }
 
 .topMenuBlock {
-  position: absolute;
+  position: fixed;
   width: 100%;
   text-align: center;
   left: 0;
@@ -1895,12 +1894,10 @@ $offset: $movement/2;
   }
   .btnWrap {
     text-align: center;
-    margin-bottom: 53px;
+    margin-bottom: 20px;
     button {
       width: 240px;
       margin: 0 5px;
-      //font-size: 15px;
-      //padding: 5px 10px;
     }
   }
 }
