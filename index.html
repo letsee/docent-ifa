@@ -5,27 +5,21 @@
   <title>Letsee AR Demo - Ultima Cena</title>
   
   <!-- Letsee SDK -->
-<!--  <script src="https://developer.letsee.io/api/webar?key=95b3e0c2fd6f8a7539e87b8e9ea7ec33b45ce405e93d9b48a090ddee58d6ec55"></script>-->
+  <!--  <script src="https://developer.letsee.io/api/webar?key=95b3e0c2fd6f8a7539e87b8e9ea7ec33b45ce405e93d9b48a090ddee58d6ec55"></script>-->
   <script src="letsee.js"></script>
   
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700|Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
-  
-  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-  
-  <script src="./vendor/jquery.scrollbar.min.js"></script>
-  <link rel="stylesheet" href="./vendor/jquery.scrollbar.css">
+  <script src="js/lib/jquery.scrollbar.min.js"></script>
+  <link rel="stylesheet" href="js/lib/jquery.scrollbar.css">
   
   <!-- Hammer -->
-<!--  <script src="./vendor/hammer.min.js"></script>-->
-<!--  <script src="https://hammerjs.github.io/dist/hammer.js"></script>-->
   <script src="https://www.unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
   
   <!-- axios -->
-<!--  <script src="https://unpkg.com/axios@0.21.1/dist/axios.min.js"></script>-->
+  <script src="js/lib/axios.min.js"></script>
   
-  <!-- Client code -->
   <link rel="stylesheet" href="css/layout.css">
   
   <style media="place" type="text/css">
@@ -35,21 +29,22 @@
       height: 360px;
     }
   </style>
+  <style>
+    #ar-content section#overview #overviewTabs li a {
+      font-size: 20px;
+    }
+    
+    #ar-content section#overview #overviewTabs .overviewTabItem#overviewTabs-1 dl {
+      font-size: 25px;
+    }
+    
+    #ar-content section#watchPoint article#chapter-2 .text h3 strong {
+      font-size: 40px;
+    }
+  </style>
 </head>
 <body class="dummy">
-<style>
-  #ar-content section#overview #overviewTabs li a {
-    font-size: 20px;
-  }
-  
-  #ar-content section#overview #overviewTabs .overviewTabItem#overviewTabs-1 dl {
-    font-size: 25px;
-  }
-  
-  #ar-content section#watchPoint article#chapter-2 .text h3 strong {
-    font-size: 40px;
-  }
-</style>
+
 <div id="landscapeGuide">
   <div class="wrap">
     <div class="inner">
@@ -681,6 +676,7 @@
 </div>
 
 <div id="backdrop"></div>
+
 <!-- Client code -->
 <script src="./js/emoji.js"></script>
 <script src="./js/app.js"></script>
@@ -700,18 +696,13 @@
         $('#sideNav').show();
         checkLoading = true;
       }
-      // initWorld(e);
     });
-    letsee.onTrackEnd(() => {});
-    letsee.onTrackMove(() => {});
-    
+    letsee.onTrackEnd(() => {
+    });
+    letsee.onTrackMove(() => {
+    });
   });
   letsee.init();
-  
-  /*setInterval(() => {
-    console.log(document.getElementById('container').style.transform);
-  }, 200);*/
-
 </script>
 </body>
 </html>

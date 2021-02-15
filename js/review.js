@@ -43,90 +43,12 @@ window.addEventListener('touchend', touchUp);
 window.addEventListener('touchmove', touchMove);
 
 let manager = new Hammer(document.body);
-manager.get('pinch').set({enable: true});
-manager.get('pan').set({enable: true, direction: Hammer.DIRECTION_ALL});
-manager.get('rotate').set({ enable: true });
-manager.get('press').set({ enable: true,time: 1000, threshold: 15 });
-manager.get('tap').set({ enable: true });
+manager.get("pinch").set({ enable: true });
+manager.get("pan").set({ enable: true, direction: Hammer.DIRECTION_ALL });
+manager.get("rotate").set({ enable: true });
+manager.get("press").set({ enable: true, time: 1000, threshold: 15 });
+manager.get("tap").set({ enable: true });
 let lastDeltaX = 0, lastDeltaY = 0;
-// let currentItem = null;
-// let lastPos = null;
-
-/*mc.on('tap', (ev) => {
-    // console.error(`TAP`, lastPos);
-
-    if (!currentItem) return ;
-    if (!lastPos) return ;
-
-    currentItem.position.x = lastPos.x;
-    currentItem.position.y = lastPos.y;
-});
-mc.on('pinch', (ev) => {
-    console.warn(ev);
-    console.error(`PINCH`);
-});
-mc.on('panstart', (ev) => {
-    // console.error(`panstart`, lastPos);
-
-    if (!currentItem) return ;
-    if (!lastPos) return ;
-
-    console.error(currentItem);
-
-    // currentItem.position.x = lastPos.x;
-    // currentItem.position.y = lastPos.y;
-
-});
-mc.on('panmove', (ev) => {
-    // console.error(`PAN`, ev);
-
-    // letsee.getEntityByUri('ultima-cena.json').children.forEach(c => {
-    //     if (c.element.className === 'renderable helper') currentItem = c;
-    // });
-
-    const { deltaX, deltaY } = ev;
-    const posX = deltaX - lastDeltaX;
-    const posY = deltaY - lastDeltaY;
-    if (!currentItem) return ;
-    if (!lastPos) return ;
-
-    console.warn(`lastPos`, lastPos);
-    currentItem.position.x = currentItem.position.x + posX;
-    currentItem.position.y = currentItem.position.y - posY;
-
-    lastDeltaX = deltaX;
-    lastDeltaY = deltaY;
-});
-mc.on('panend', (ev) => {
-    // console.error(`PANEND`, ev);
-
-    if (!currentItem) return ;
-    console.warn(currentItem.position);
-    lastPos = currentItem.position;
-
-});
-mc.on('rotate', (ev) => {
-    console.warn(ev);
-    console.error(`ROTATE`);
-});
-mc.on('press', (ev) => {
-    console.warn(ev);
-    console.error(`PRESS`);
-});*/
-
-/*let manager = new Hammer.Manager(document.body),
-    Pan = new Hammer.Pan(),
-    Rotate = new Hammer.Rotate(),
-    Pinch = new Hammer.Pinch(),
-    Press = new Hammer.Press({time: 1000, threshold: 15});
-
-Rotate.recognizeWith([Pan]);
-Pinch.recognizeWith([Rotate, Pan]);
-
-manager.add(Press);
-manager.add(Pan);
-manager.add(Rotate);
-manager.add(Pinch);*/
 
 let touch = {
     current: {
@@ -155,17 +77,15 @@ let touch = {
 };
 
 manager.on('panmove', function (e) {
-    console.warn(`move`);
-
     if (touch.gestureF3.enable) return;
     if (!editObject) return;
     if (touch.isBoundary) return;
 
-    const { deltaX, deltaY } = e;
+    /*const { deltaX, deltaY } = e;
     const posX = deltaX - lastDeltaX;
     const posY = deltaY - lastDeltaY;
 
-    /*if (currentTarget.size.width * 2 < editObject.position.x || -currentTarget.size.width * 2 > editObject.position.x) {
+    if (currentTarget.size.width * 2 < editObject.position.x || -currentTarget.size.width * 2 > editObject.position.x) {
         editObject.position.x = editObject.position.x > 0 ? (currentTarget.size.width * 2) - 1 : -((currentTarget.size.width * 2) - 1);
 
         touch.current.x = editObject.position.x;
@@ -181,24 +101,17 @@ manager.on('panmove', function (e) {
         touch.isBoundary = true;
         return;
     }*/
-
     if (touch.press) {
-        const dZ = touch.current.z + (e.deltaY / 4);
+        const dZ = touch.current.z + e.deltaY / 4;
 
         editObject.position.z = -dZ;
         touch.helper.position.z = editObject.position.z - 0;
-
     } else {
-        const dX = touch.current.x + (e.deltaX * 2);
-        const dY = touch.current.y + (e.deltaY * 2);
+        const dX = touch.current.x + e.deltaX * 2;
+        const dY = touch.current.y + e.deltaY * 2;
 
         editObject.position.x = dX;
         editObject.position.y = -dY;
-        // editObject.position.x = editObject.position.x + posX;
-        // editObject.position.y = editObject.position.y - posY;
-        //
-        // lastDeltaX = deltaX;
-        // lastDeltaY = deltaY;
     }
 });
 
@@ -213,15 +126,15 @@ manager.on('panend', function (e) {
             // world.remove(touch.helper);
 
             touch.current.z = touch.current.z + e.deltaY / 4;
-            manager.get('pinch').set({enable: true});
-            manager.get('rotate').set({enable: true});
-
+            manager.get("pinch").set({ enable: true });
+            // manager.get("rotate").set({ enable: true });
+            manager.get("rotate").set({ enable: false });
         } else {
             touch.current.x = touch.current.x + e.deltaX * 2;
             touch.current.y = touch.current.y + e.deltaY * 2;
         }
     }
-});
+})
 
 manager.on('pinchmove', function (e) {
     if (touch.gestureF3.enable) return;
@@ -251,12 +164,12 @@ manager.on('pinchmove', function (e) {
 
     editObject.scale.set(scale, scale, scale);
 
-    const dX = touch.current.x + (e.deltaX * 2);
-    const dY = touch.current.y + (e.deltaY * 2);
+    const dX = touch.current.x + e.deltaX * 2;
+    const dY = touch.current.y + e.deltaY * 2;
 
     editObject.position.x = dX;
     editObject.position.y = dY;
-});
+})
 
 manager.on('pinchend', function (e) {
     if (touch.gestureF3.enable) return;
@@ -265,22 +178,26 @@ manager.on('pinchend', function (e) {
 
     touch.current.scale = e.scale * touch.current.scale;
     // touch.current.scale = (e.scale-(e.scale/2)) * touch.current.scale;
-});
+})
 
 manager.on('rotatemove', function (e) {
     if (touch.gestureF3.enable) return;
     if (!editObject) return;
 
-    if (touch.OLD_ROTATE_Z) editObject.rotateZ((touch.OLD_ROTATE_Z - -e.rotation) / 60);
+    if (touch.OLD_ROTATE_Z) {
+        // editObject.rotateZ((touch.OLD_ROTATE_Z - -e.rotation) / 60);
+        editObject.rotateZ(-(touch.OLD_ROTATE_Z - -e.rotation) / 30);
+    }
     touch.OLD_ROTATE_Z = -e.rotation;
-});
+
+})
 
 manager.on('rotateend', function (e) {
     if (touch.gestureF3.enable) return;
     if (!editObject) return;
 
     touch.OLD_ROTATE_Z = null;
-});
+})
 
 manager.on('pressup', function (e) {
     if (touch.gestureF3.enable) return;
@@ -290,7 +207,7 @@ manager.on('pressup', function (e) {
     }
 })
 
-manager.on('press', function (e) {
+/*manager.on('press', function (e) {
     if (touch.gestureF3.enable) return;
     if (!editObject) return;
 
@@ -313,7 +230,7 @@ manager.on('press', function (e) {
     // world.add(touch.helper);
     manager.get('pinch').set({enable: false});
     manager.get('rotate').set({enable: false});
-});
+});*/
 
 // 3F
 function touchMove(e) {
@@ -346,6 +263,7 @@ function touchMove(e) {
         touch.move.x = e.touches[1].pageX;
         touch.move.y = e.touches[1].pageY;
     }
+
 }
 
 function touchDown(e) {
@@ -354,12 +272,12 @@ function touchDown(e) {
     if (e.touches.length > 2) {
         touch.gestureF3.enable = true;
 
-        // manager.get('pan').set({enable: false});
-        // manager.get('pinch').set({enable: false});
-        // manager.get('rotate').set({enable: false});
-        //
-        // touch.move.x = e.touches[1].pageX;
-        // touch.move.y = e.touches[1].pageY;
+        manager.get("pan").set({ enable: false });
+        manager.get("pinch").set({ enable: false });
+        manager.get("rotate").set({ enable: false });
+
+        touch.move.x = e.touches[1].pageX;
+        touch.move.y = e.touches[1].pageY;
     }
 }
 
@@ -369,11 +287,12 @@ function touchUp(e) {
     if (touch.gestureF3.enable) touch.gestureF3.count++;
 
     if (touch.gestureF3.count === 3) {
-        // manager.get('pan').set({enable: true});
-        // manager.get('pinch').set({enable: true});
-        // manager.get('rotate').set({enable: true});
-        // touch.gestureF3.count = 0;
-        // touch.gestureF3.enable = false;
+        manager.get("pan").set({ enable: true });
+        manager.get("pinch").set({ enable: true });
+        // manager.get("rotate").set({ enable: true });
+        manager.get("rotate").set({ enable: false });
+        touch.gestureF3.count = 0;
+        touch.gestureF3.enable = false;
     }
 }
 
@@ -450,8 +369,6 @@ function extractRotation(rotation) {
     }
 }
 
-// getComments();
-
 /**
  * Create DOM content wrapper for comments (text & emojis).
  *
@@ -515,8 +432,6 @@ function createDom(type, value,  _author = null) {
     // const element = document.createElement('div');
     currentTemplate.content = createDomContent(type, value, _author);
 
-    console.error(editObject);
-
     if (!editObject) {
         editObject = createRenderable(currentTemplate.content);
         editObject.element.classList.add('renderable', 'helper');
@@ -527,7 +442,7 @@ function createDom(type, value,  _author = null) {
 }
 
 /**
- * Show XRElements for comments.
+ * Show all XRElements.
  */
 function showCommentRenderable() {
 
@@ -540,7 +455,7 @@ function showCommentRenderable() {
 }
 
 /**
- * Hide XRElements for comments.
+ * Hide all XRElements.
  */
 function hideCommentRenderable() {
 
