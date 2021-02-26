@@ -240,12 +240,6 @@ cancelPost.click(() => {
   reviewButtonWrap.show();
 
   // Remove xrelement our of Entity ( only remove the last one )
-  /*letsee.getEntityByUri("ultima-cena.json").children.pop();
-
-  // Remove xrelement our of DOM
-  let elem = document.querySelector(".helper");
-  elem.parentNode.removeChild(elem);*/
-
   letsee.removeXRElement(getLastChild());
 
   $("#sideNav").removeClass("hide");

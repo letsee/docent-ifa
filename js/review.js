@@ -394,8 +394,6 @@ const createDomContent = (_type, _content, _author = null) => {
  */
 function createRenderable(_content, _position = null, _rotation = null, _scale = null) {
 
-    // let xrelement = letsee.addXRElement(_content, letsee.getEntityByUri('ultima-cena.json'));
-
     const entity = letsee.getEntityByUri('ultima-cena.json');
     let xrelement = letsee.createXRElement(_content);
     letsee.bindXRElement(xrelement, entity);
