@@ -230,17 +230,23 @@ textReviewInput.children("form").submit((e) => {
     hideTextReviewModal();
   }
 });
+
+/**
+ * When clicks 'Cancel' button => remove the current xrElement.
+ */
 cancelPost.click(() => {
   $(".topMenuBlock").removeClass("on");
   // reviewSideNav.addClass('on');
   reviewButtonWrap.show();
 
-  // Remove xrelement our of Entity
-  letsee.getEntityByUri("ultima-cena.json").children.pop();
+  // Remove xrelement our of Entity ( only remove the last one )
+  /*letsee.getEntityByUri("ultima-cena.json").children.pop();
 
   // Remove xrelement our of DOM
   let elem = document.querySelector(".helper");
-  elem.parentNode.removeChild(elem);
+  elem.parentNode.removeChild(elem);*/
+
+  letsee.removeXRElement(getLastChild());
 
   $("#sideNav").removeClass("hide");
   resetTextReview();
@@ -289,6 +295,15 @@ const chapterObj = [
       '<a href="#" class="btnRound btnPlay" id="chapter4play" onclick="chapter4play();">Play</a>',
   },
 ];
+
+/**
+ * Get the last child in the list of XRElements.
+ * @returns {*}
+ */
+function getLastChild() {
+  let xrElements = letsee.getEntityByUri("ultima-cena.json").children;
+  return xrElements[xrElements.length - 1];
+}
 
 const startNoteAnimation = () => {
   const duration = 1000;

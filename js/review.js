@@ -393,29 +393,13 @@ const createDomContent = (_type, _content, _author = null) => {
  * @returns {*}
  */
 function createRenderable(_content, _position = null, _rotation = null, _scale = null) {
-    // const element = document.createElement('div');
-    // element.classList.add('renderable');
-    // element.innerHTML = _content;
 
-    let xrelement = letsee.addXRElement(_content, letsee.getEntityByUri('ultima-cena.json'));
+    // let xrelement = letsee.addXRElement(_content, letsee.getEntityByUri('ultima-cena.json'));
 
-    /*const renderableEle = new DOMRenderable(element);
-    if (_position)
-        renderableEle.position.copy(_position);
-    else
-        renderableEle.position.setScalar(0);
+    const entity = letsee.getEntityByUri('ultima-cena.json');
+    let xrelement = letsee.createXRElement(_content);
+    letsee.bindXRElement(xrelement, entity);
 
-    if (_rotation)
-        renderableEle.rotation.copy(extractRotation(_rotation));
-    else
-        renderableEle.position.setScalar(0);
-
-    if (_scale)
-        renderableEle.scale.copy(_scale);
-    else
-        renderableEle.position.setScalar(1);
-
-    return renderableEle;*/
     return xrelement;
 }
 
