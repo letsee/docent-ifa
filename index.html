@@ -10,21 +10,24 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700|Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+  
   <script src="js/lib/jquery.scrollbar.min.js"></script>
   <link rel="stylesheet" href="js/lib/jquery.scrollbar.css">
+  
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollbar/0.2.11/jquery.scrollbar.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollbar/0.2.11/jquery.scrollbar.css">-->
   
   <!-- Hammer -->
   <script src="https://www.unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
   
   <!-- axios -->
-  <script src="js/lib/axios.min.js"></script>
+<!--  <script src="js/lib/axios.min.js"></script>-->
   
   <link rel="stylesheet" href="css/layout.css">
   
   <style media="place" type="text/css">
     #container {
       -letsee-target: uri('https://s-developer.letsee.io/api-tm/target-manager/target-uid/604597834e5b9fac00210031');
-      /*-letsee-target: uri('ultima-cena.json');*/
       width: 640px;
       height: 360px;
     }
@@ -92,6 +95,7 @@
       </ul>
       <!--<div class="poweredby"><img src="./asset/letsee-logo.svg"></div>-->
     </section>
+    
     <!--Overview of work-->
     <section id="overview" class="contentBox">
       <div class="sectionTitle">
@@ -123,7 +127,7 @@
         <div class="overviewTabItem" id="overviewTabs-2">
           <img id="supper-intro" src="asset/overview_last_supper.jpg" alt="">
           <h3>The Last Supper</h3>
-          <div class="scrollbar-inner">
+          <div class="scrollbar-inner" id = 'test' style="overflow: scroll;-webkit-overflow-scrolling: touch;">
             <div class="textCell">
               <p>The Last Supper of Leonardo da Vinci (Cenacolo Vinciano) is one of the most famous paintings in the
                 world. This artwork was painted between 1494 and 1498 under the government of Ludovico il Moro and

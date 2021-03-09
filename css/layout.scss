@@ -79,10 +79,8 @@ button {
 
 // Override
 html, body {
-  overflow: hidden;
+  //overflow: hidden;
 }
-
-
 
 // Minin
 @mixin randomTranslate($frame) {
@@ -226,6 +224,12 @@ $offset: $movement/2;
 
 }
 
+@-webkit-keyframes fixWebkitOverflowScroll
+{
+  0% {padding-bottom: 1px;}
+  100% {padding-bottom: 0px;}
+}
+
 #landscapeGuide {
   display: none;
   background: #ff4a00;
@@ -299,6 +303,18 @@ $offset: $movement/2;
 @media (orientation: portrait) {
   #landscapeGuide {
     display: block !important;
+  }
+}
+@media (orientation: landscape) {
+
+  /*.webkit-scroll-container > * {
+    -webkit-animation: fixWebkitOverflowScroll 1s;
+    background: blue;
+  }*/
+
+  #test {
+    overflow: scroll !important;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -429,10 +445,10 @@ $offset: $movement/2;
 /*** Contents layout */
 .contentBox {
   display: none;
-  position: absolute;
+  //position: absolute;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: scroll;// hidden;
 }
 #ar-content {
   width: 100%;
@@ -523,7 +539,7 @@ $offset: $movement/2;
 
     &#overview { // overview item
       #overviewTabs {
-        position: absolute;
+        //position: absolute;
         top: 104px;
         width: 100%;
         padding: 0 20px 20px 20px;

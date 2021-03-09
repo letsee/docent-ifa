@@ -36,10 +36,31 @@ const divider        = $("#divider"),
 let currentWatchpoint = 0;
 
 // Init tabs
-$("#overviewTabs").tabs({ active: 0 });
+$("#overviewTabs").tabs({
+  active: 0,
+});
+/*
+$(".scrollbar-inner").scrollbar({
+  "onScroll": function(y, x){
+    console.error('scroll')
+  }
+});
+*/
 
 // Init scrollbar
 $(".scrollbar-inner").scrollbar();
+
+document.getElementById('test').addEventListener('click', ()=>  console.error('click'));
+document.getElementById("test").addEventListener("touchmove", (e) => {
+  // e.preventDefault();
+  return true;
+});
+// document.getElementById("test").scrollTop = '200px';
+document.getElementById("test").addEventListener("touchstart", (e) => {
+  // $(".scrollbar-inner").scrollbar();
+  console.error("touchstart", e.target);
+});
+document.getElementById('test').addEventListener('scroll',() => console.error('scroll'));
 
 function toggleBackdrop(status) {
   status ? backdrop.show() : backdrop.hide();
@@ -295,7 +316,8 @@ const chapterObj = [
  * @returns {*}
  */
 function getLastChild() {
-  let xrElements = letsee.getEntityByUri("https://s-developer.letsee.io/api-tm/target-manager/target-uid/604597834e5b9fac00210031").children;
+  // let xrElements = letsee.getEntityByUri("https://s-developer.letsee.io/api-tm/target-manager/target-uid/604597834e5b9fac00210031").children;
+  let xrElements = letsee.getEntityByUri("ultima-cena.json").children;
   return xrElements[xrElements.length - 1];
 }
 
