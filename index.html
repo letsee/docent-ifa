@@ -24,7 +24,6 @@
 <!--  <script src="js/lib/axios.min.js"></script>-->
   
   <link rel="stylesheet" href="css/layout.css">
-  
   <style media="place" type="text/css">
     #container {
       -letsee-target: uri('https://s-developer.letsee.io/api-tm/target-manager/target-uid/604597834e5b9fac00210031');
@@ -45,6 +44,7 @@
       font-size: 40px;
     }
   </style>
+
 </head>
 <body class="dummy">
 
@@ -551,15 +551,23 @@
             </div>
           </div>
           
+          <!--Youtube Video-->
           <div id="chapter4Video" style="display: none">
             <a style="" href="#" class="btnRound btnGoback" id="chapter4return" onclick="chapter4return();">Close</a>
             <div class="video">
               <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/MkuIzdHwOAk" frameborder="0"
+                <!--<iframe id="myFrame" width="560" height="315" src="https://www.youtube.com/embed/MkuIzdHwOAk" frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+                        allowfullscreen></iframe>-->
+                <!--<iframe id="myFrame" src="https://www.youtube.com/embed/MkuIzdHwOAk?enablejsapi=1&html5=1&mute=1" frameborder="0" allowfullscreen></iframe>-->
+                <iframe id="myFrame"
+                        width="640" height="360"
+                        src="https://www.youtube.com/embed/MkuIzdHwOAk?enablejsapi=1&html5=1&mute=1&autoplay=1"
+                        frameborder="0" allow="autoplay; fullscreen"
+                        style="border: solid 4px #37474F"></iframe>
               </div>
             </div>
+            <div id="playYoutube"></div>
           </div>
         </div>
       </article>
@@ -707,6 +715,59 @@
     });
   });
   letsee.init();
+  
+  
+  // Youtube button control
+  // Inject YouTube API script
+  var tag = document.createElement("script");
+  tag.src = "//www.youtube.com/player_api";
+  var firstScriptTag = document.getElementsByTagName("script")[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
+  let player;
+  // this function gets called when API is ready to use
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('myFrame', {
+      height: '390',
+      width: '640',
+      videoId: 'MkuIzdHwOAk',
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+  
+  function onPlayerReady(event) {
+    // event.target.unMute();
+    // event.target.setVolume(100);
+    
+    // bind events
+    let playButton = document.getElementById("playYoutube");
+    let closeButton = document.getElementById('chapter4return');
+    playButton.addEventListener("click", function () {
+      console.log(`play video`);
+      // document.getElementById('myFrame').muted = true;
+      // player.muted = false;
+      player.unMute();
+      player.playVideo();
+    });
+  
+    closeButton.addEventListener('click', () => {
+      console.log(`stop video`);
+      // player.pauseVideo();
+      player.stopVideo();
+    })
+  }
+  var done = false;
+  function onPlayerStateChange(event) {
+    /*if (event.data === YT.PlayerState.PLAYING && !done) {
+      setTimeout(playVideo, 6000);
+      done = true;
+    }*/
+    console.log(event.data);
+  }
+  
 </script>
 </body>
 </html>

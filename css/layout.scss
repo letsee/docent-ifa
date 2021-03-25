@@ -2045,3 +2045,64 @@ $offset: $movement/2;
 .dummy .dummy_img {
   display: none;
 }
+
+
+.button {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  &:hover {
+    fill: white;
+  }
+}
+.defs {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.buttons {
+  background: #f06d06;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  padding: 1rem;
+}
+#playYoutube {
+  background: #424242;
+  border-radius: 50% / 10%;
+  color: #FFFFFF;
+  //font-size: 2em; /* change this to change size */
+  margin: 20px auto;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  text-indent: 0.1em;
+  transition: opacity .25s cubic-bezier(0,0,0.2,1) ; /*all 150ms ease-out;*/
+  width: 68px; /*4em;*/
+  height: 48px; /*3em;*/
+  &:hover {
+    background: red;
+  }
+  &::before {
+    background: inherit;
+    border-radius: 5% / 50%;
+    bottom: 9%;
+    content: "";
+    left: -5%;
+    position: absolute;
+    right: -5%;
+    top: 9%;
+  }
+  &::after {
+    border-style: solid;
+    border-width: 1em 0 1em 1.732em;
+    border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
+    content: ' ';
+    font-size: 0.75em;
+    height: 0;
+    margin: -1em 0 0 -0.75em;
+    top: 50%;
+    position: absolute;
+    width: 0;
+  }
+}
