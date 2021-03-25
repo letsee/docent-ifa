@@ -559,7 +559,6 @@
                 <!--<iframe id="myFrame" width="560" height="315" src="https://www.youtube.com/embed/MkuIzdHwOAk" frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>-->
-                <!--<iframe id="myFrame" src="https://www.youtube.com/embed/MkuIzdHwOAk?enablejsapi=1&html5=1&mute=1" frameborder="0" allowfullscreen></iframe>-->
                 <iframe id="myFrame"
                         width="640" height="360"
                         src="https://www.youtube.com/embed/MkuIzdHwOAk?enablejsapi=1&html5=1&mute=1&autoplay=1"
@@ -715,58 +714,6 @@
     });
   });
   letsee.init();
-  
-  
-  // Youtube button control
-  // Inject YouTube API script
-  var tag = document.createElement("script");
-  tag.src = "//www.youtube.com/player_api";
-  var firstScriptTag = document.getElementsByTagName("script")[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  
-  let player;
-  // this function gets called when API is ready to use
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('myFrame', {
-      height: '390',
-      width: '640',
-      videoId: 'MkuIzdHwOAk',
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  }
-  
-  function onPlayerReady(event) {
-    // event.target.unMute();
-    // event.target.setVolume(100);
-    
-    // bind events
-    let playButton = document.getElementById("playYoutube");
-    let closeButton = document.getElementById('chapter4return');
-    playButton.addEventListener("click", function () {
-      console.log(`play video`);
-      // document.getElementById('myFrame').muted = true;
-      // player.muted = false;
-      player.unMute();
-      player.playVideo();
-    });
-  
-    closeButton.addEventListener('click', () => {
-      console.log(`stop video`);
-      // player.pauseVideo();
-      player.stopVideo();
-    })
-  }
-  var done = false;
-  function onPlayerStateChange(event) {
-    /*if (event.data === YT.PlayerState.PLAYING && !done) {
-      setTimeout(playVideo, 6000);
-      done = true;
-    }*/
-    console.log(event.data);
-  }
   
 </script>
 </body>

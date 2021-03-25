@@ -39,28 +39,9 @@ let currentWatchpoint = 0;
 $("#overviewTabs").tabs({
   active: 0,
 });
-/*
-$(".scrollbar-inner").scrollbar({
-  "onScroll": function(y, x){
-    console.error('scroll')
-  }
-});
-*/
 
 // Init scrollbar
 $(".scrollbar-inner").scrollbar();
-
-document.getElementById('test').addEventListener('click', ()=>  console.error('click'));
-document.getElementById("test").addEventListener("touchmove", (e) => {
-  // e.preventDefault();
-  return true;
-});
-// document.getElementById("test").scrollTop = '200px';
-document.getElementById("test").addEventListener("touchstart", (e) => {
-  // $(".scrollbar-inner").scrollbar();
-  console.error("touchstart", e.target);
-});
-document.getElementById('test').addEventListener('scroll',() => console.error('scroll'));
 
 function toggleBackdrop(status) {
   status ? backdrop.show() : backdrop.hide();
@@ -119,7 +100,11 @@ function resetReviewSection() {
 }
 
 $("#sideNav a").click(function (e) {
+  console.error(`Stop video if open another pages.`);
+  player.stopVideo();
+  playButton.style.display ='block';
   e.preventDefault();
+
   const target = $(this).attr("href");
   // $('#sideNav').removeClass('on');
   if (target !== "#close") {
@@ -187,7 +172,8 @@ function hideTextReviewModal() {
   reviewControl.addClass("on");
 }
 
-reviewSideNavLink.click(function (e) {
+/*reviewSideNavLink.click(function (e) {
+  console.error(`Nothing comes here!?`);
   e.preventDefault();
   reviewSideNavLink.removeClass("active");
   $(this).addClass("active");
@@ -208,7 +194,7 @@ reviewSideNavLink.click(function (e) {
       setEmojiReview();
       break;
   }
-});
+});*/
 
 $("#textReview").click(function () {
   setTextReview();
@@ -533,4 +519,48 @@ function checkValidation(ele, valText, status, text = null) {
     valText.html(text);
     valText.show();
   }
+}
+
+// Youtube button control
+// Inject YouTube API script
+let playButton = document.getElementById("playYoutube");
+let closeButton = document.getElementById('chapter4return');
+var tag = document.createElement("script");
+tag.src = "//www.youtube.com/player_api";
+var firstScriptTag = document.getElementsByTagName("script")[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+let player;
+// this function gets called when API is ready to use
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('myFrame', {
+    height: '390',
+    width: '640',
+    videoId: 'MkuIzdHwOAk',
+    events: {
+      'onReady': onPlayerReady,
+      // 'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerReady(event) {
+  // event.target.unMute();
+  // event.target.setVolume(100);
+
+  // bind events
+  playButton.addEventListener("click", function () {
+    console.log(`play video`);
+    // document.getElementById('myFrame').muted = true;
+    // player.muted = false;
+    player.unMute();
+    player.playVideo();
+    playButton.style.display ='none';
+  });
+
+  closeButton.addEventListener('click', () => {
+    console.error(`stop video`);
+    player.stopVideo();
+    playButton.style.display ='block';
+  })
 }
