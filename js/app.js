@@ -302,8 +302,7 @@ const chapterObj = [
  * @returns {*}
  */
 function getLastChild() {
-  // let xrElements = letsee.getEntityByUri("https://s-developer.letsee.io/api-tm/target-manager/target-uid/604597834e5b9fac00210031").children;
-  let xrElements = letsee.getEntityByUri("ultima-cena.json").children;
+  let xrElements = letsee.getEntityByUri("https://developer.letsee.io/api-tm/target-manager/target-uid/60619052360d4d1bbda55d20").children;
   return xrElements[xrElements.length - 1];
 }
 
