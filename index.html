@@ -702,6 +702,9 @@
     $('#ar-content').show();
     
     letsee.onTrackStart(e => {
+      const parent = document.getElementById('container').parentNode;
+      parent.style.pointerEvents = 'none';
+      
       if (!checkLoading) {
         $('#loader').hide();
         $('#sideNav').show();
